@@ -1,0 +1,104 @@
+<head>
+    <title>项目报名名单</title>
+    <link rel="stylesheet" href="/common/css/pages.css">
+</head>
+<body>
+<!--=== 当前位置 开始 ===-->
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页
+    <span class="c-gray en">&gt;</span>
+    项目报名
+    <span class="c-gray en">&gt;</span>
+    {{project}}报名名单
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<!--=== 当前位置 结束 ===-->
+
+<!--=== 操作按钮与总条数 开始 ===-->
+<div class="page-container">
+
+    <!--=== 列表 开始 ===-->
+    <div class="mt-20" style="margin-top: 0px;">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th>公司全称</th>
+                <th>报名材料</th>
+            </tr>
+            </thead>
+            <tbody id="render">
+            <script type="text/html" id="tpl">
+                <%for(i=0;i < data.length;i++){%>
+                <tr class="text-c">
+                    <td><%=data[i].name%></td>
+                    <td>
+                        <%for(j=0;j < data[i].filenameArr.length;j++){%>
+                        <a onclick="materialShow('<%=data[i].filenameArr[j]%>','<%=data[i].path[j]%>')" href="javascript:void(0)" style="display: block;margin-bottom:5px"><%=data[i].filenameArr[j]%></a>
+                        <%}%>
+                    </td>
+                </tr>
+                <%}%>
+            </script>
+            </tbody>
+        </table>
+        <!--=== 列表 结束 ===-->
+    </div>
+</div>
+
+<div class="hidden aa">{{uProject}}</div>
+<!--请在下方写此页面业务相关的脚本-->
+<!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+<!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+<!--<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>-->
+<!--<script type="text/javascript" src="lib/lightbox2/2.8.1/js/lightbox.min.js"></script>-->
+<script type="text/javascript" src="/lib/template-native.js"></script>
+<script src="/common/js/pages.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var aa = $(".aa").text()
+        console.log(aa)
+        var data = JSON.parse(aa)
+        console.log("data>>>>",data)
+
+        $("#render").html(template("tpl",{data:data}))
+
+        $(".portfolio-area li").Huihover();
+    });
+
+    //查看材料
+    function materialShow(name,url){
+        var name = name.split('.')
+        console.log("name",name)
+        var type = name[name.length-1]
+        console.log("type",type)
+        console.log("url",url)
+        if(type == 'docx'){
+            var u = encodeURI(url)
+            location.href = "/material.html?url="+u
+        }else if(type == 'pdf'){
+            var u = encodeURI(url)
+            location.href = "/pdf.html?file="+u
+        }else{
+            console.log("url",url)
+            var u = encodeURI(url)
+            console.log("url1",u)
+            location.href = "/"+url
+        }
+    }
+    //	$(function(){
+    //		$('.table-sort').dataTable({
+    //			"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+    //			"bStateSave": true,//状态保存
+    //			"aoColumnDefs": [
+    //			  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //			  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+    //			]
+    //		});
+    //
+    //	});
+
+</script>
+</body>

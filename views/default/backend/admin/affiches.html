@@ -1,0 +1,225 @@
+<head>
+    <title>公告列表</title>
+    <link rel="stylesheet" href="/common/css/pages.css">
+</head>
+<body>
+    <!--=== 当前位置 开始 ===-->
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i>
+        首页
+        <span class="c-gray en">&gt;</span>
+        公告管理
+        <span class="c-gray en">&gt;</span>
+        公告列表
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+    </nav>
+    <!--=== 当前位置 结束 ===-->
+
+    <div class="page-container">
+
+        <!--=== 时间与搜索 开始 ===-->
+        <div class="text-c">
+            <div class="text-c" style="margin-top: 10px;margin-bottom: -7px;">
+                <input type="text" name="" placeholder=" 公告名称" style="width:250px" class="input-text compan">
+                <button name="" class="btn btn-success search" type="submit">
+                    <i class="Hui-iconfont">&#xe665;</i>
+                    搜公告
+                </button>
+            </div>
+        </div>
+        <!--=== 时间与搜索 结束 ===-->
+
+        <!--=== 操作按钮与总条数 开始 ===-->
+        <div class="cl pd-5 bg-1 bk-gray mt-20"  style="margin-bottom: -19px;">
+            <span class="l">
+                <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                    <i class="Hui-iconfont">&#xe6e2;</i>
+                    批量删除
+                </a>
+                <a class="btn btn-primary radius" data-title="发布公告" onclick="notice_add('发布项目','/notice-add.html','','510')" href="javascript:;">
+                    <i class="Hui-iconfont">&#xe603;</i>
+                     发布公告
+                </a>
+            </span>
+            <span class="r">共有数据：<strong></strong> 条</span>
+        </div>
+        <!--=== 操作按钮与总条数 结束 ===-->
+
+        <!--=== 列表 开始 ===-->
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+                <thead>
+                <tr class="text-c">
+                    <th>
+                        <input type="checkbox" name="" value="">
+                    </th>
+                    <th>标题</th>
+                    <th>所属项目</th>
+                    <th>附件</th>
+                    <th>发布者</th>
+                    <th>发布时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="render">
+                <script type="text/html" id="tpl">
+                    <%for(i=0;i < data.length;i++){%>
+                <tr class="text-c">
+                    <td>
+                        <input type="checkbox" value="<%=data[i]._id%>" name="check">
+                    </td>
+                    <td><%=data[i].name%></td>
+                    <td>
+                        <u style="cursor:pointer" class="text-primary" onClick="modalalertdemo()" title="查看"><%=data[i].project%></u></td>
+                    <td>
+                        <%for(j=0;j < data[i].material.length;j++){%>
+                        <a class="btn btn-link" href="javascript:;" onClick="materialShow('<%=data[i].material[j].name%>','<%=data[i].material[j].url%>')"><%=data[i].material[j].name%></a>
+                        <%}%>
+                    </td>
+                    <td><%=data[i].admin_id%></td>
+                    <td><%=data[i].time%></td>
+                    <td class="f-14 td-manage">
+                        <a style="text-decoration:none" class="ml-5" onClick="notice_edit('编辑','/notice-add.html?id=<%=data[i]._id%>','4','','510')" href="javascript:;" title="编辑">
+                            <i class="Hui-iconfont">&#xe6df;</i>
+                        </a>
+                        <a style="text-decoration:none" class="ml-5" onClick="notice_del(this,'<%=data[i]._id%>')" href="javascript:;" title="删除">
+                            <i class="Hui-iconfont">&#xe6e2;</i>
+                        </a>
+                    </td>
+                </tr>
+                    <%}%>
+                </script>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <ul class="pages col-md-4">
+                    <li class="firstPage">首页</li>
+                    <li class="prePage">上一页</li>
+                    <li class="nextPage">下一页</li>
+                    <li class="lastPage">末页</li>
+                    <div class="only">共一页</div>
+                </ul>
+
+            </div>
+        </div>
+        <!--=== 列表 结束 ===-->
+    </div>
+    <div class="hidden aa">{{notices}}</div>
+    <div class="hidden length">{{length}}</div>
+    <input type="text" class="select hidden" value="-1">
+    <!--请在下方写此页面业务相关的脚本-->
+    <!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+    <!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+    <!--<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>-->
+    <script type="text/javascript" src="/lib/template-native.js"></script>
+    <script src="/common/js/pages.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            console.log($(".select").val())
+            var aa = $(".aa").text()
+            console.log("aa",aa)
+            var data = JSON.parse(aa)
+            var le = $('.length').text()
+            var length = JSON.parse(le)
+            console.log("data>>>>",data[0].material.length)
+            $(".r strong").html(length)
+            $("#render").html(template("tpl",{data:data}))
+            var pageLength = length;
+            var l = Math.ceil(pageLength/10);
+            console.log(l);
+            page(l,"/notice/pages.html");
+            $(".search").on("click",function(){
+                var notice = $(".compan").val()
+                console.log("notice",notice)
+                $.ajax({
+                    url:"/notice/search.html",
+                    type:"post",
+                    data:{notice:notice},
+                    success:function(res){
+                        console.log(res)
+                        $("#render").html(template("tpl",{data:res}))
+                        var pageLength = res.length;
+                        var l = Math.ceil(pageLength/10);
+                        console.log(l);
+                        page(l,"/notice/pages.html");
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            })
+        })
+
+        function notice_add(title,url,w,h){
+            layer_show(title,url,w,h);
+        }
+        function notice_edit(title,url,id,w,h){
+            layer_show(title,url,w,h);
+        }
+        /*项目-删除*/
+        function notice_del(obj,id){
+            console.log("id",id)
+            var ids = []
+            ids.push(id)
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    type: 'POST',
+                    url: '/notice/delete.html',
+                    dataType: 'json',
+                    data:{ids:ids.toString()},
+                    success: function(data){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    },
+                    error:function(data) {
+                        console.log(data.msg);
+                    },
+                });
+            });
+        }
+        function datadel() {
+            var obj = document.getElementsByName("check");
+            var check_val = [];
+            for(var k in obj){
+                if(obj[k].checked)
+                    check_val.push(obj[k].value);
+            }
+            layer.confirm('确认要批量删除吗？',function(index){
+                $.ajax({
+                    type: 'POST',
+                    url: '/notice/delete.html',
+                    dataType: 'json',
+                    data:{
+                        ids:check_val.toString()
+                    },
+                    success: function(data){
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        location.replace("/admin/affiches.html")
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    },
+                });
+            });
+        }
+
+        //查看材料
+        function materialShow(name,url){
+            var name = name.split('.')
+            console.log("name",name)
+            var type = name[name.length-1]
+            console.log("type",type)
+            console.log("url",url)
+            if(type == 'docx'){
+                  var u = encodeURI(url)
+                 location.href = "/material.html?url="+u
+            }else if(type == 'pdf'){
+                var u = encodeURI(url)
+                location.href = "/pdf.html?file="+u
+            }
+
+        }
+    </script>
+</body>

@@ -1,0 +1,60 @@
+<head>
+    <meta charset="UTF-8">
+    <title>材料详情</title>
+    <style>
+        *{margin:0;padding:0}
+        table,table th,table tr,table td{border:1px solid #ccc}
+        .content{font-size:1rem;padding: 3% 15%;font-family: 宋体;color:#333}
+        table p{text-align: center;}
+        table th,table tr,table td{padding:0.3rem 0.3rem;font-size:0.7rem}
+        p{text-indent:2em}
+        h1{font-size:2em}
+        h2{font-size:1.8em}
+        h1,h2,h3{padding-top:1.2em;padding-bottom:1em}
+        @media(max-width: 767px){
+            body,th, td, button, input, select, textarea {
+                 font-size: 1rem;
+            }
+            .content{padding:0}
+        }
+
+    </style>
+</head>
+<body>
+<nav class="breadcrumb" style="position: fixed;top:0px;width:98%">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页
+    <span class="c-gray en">&gt;</span>
+    材料详情
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:void(0)" onclick="fileDownload()" title="下载" >
+        <i class="Hui-iconfont">&#xe640;</i>
+    </a>
+</nav>
+
+<div class="content">
+    <div class="c"></div>
+    <div class="hidden">{{html}}</div>
+</div>
+<span class="path" style="display:none">{{path}}</span>
+<script type="text/javascript" src="/common/js/common/util.js"></script>
+<script>
+    $(function(){
+        var html = $(".hidden").text()
+        $(".c").html(html)
+        $(".c p:first").css({"text-align":"center","font-size":"1.6rem","margin-bottom":"3rem"})
+        $("strong").parent().css({"text-indent":"0"})
+        $("table p").css({"text-indent":"0"})
+        $(".c").css({"margin-top":"4%","padding":"5% 15%","background":"#FCFCFC","border":"1px solid #ccc","box-shadow":"1px 1px 1px #B6B8C2"})
+    })
+
+    function fileDownload(){
+        var path = $(".path").text()
+        console.log("path",path)
+        var arr = path.split("/")
+        console.log("path2",arr)
+        var name = arr[arr.length - 1]
+        console.log("name",name)
+        location.href = path
+    }
+</script>
+</body>

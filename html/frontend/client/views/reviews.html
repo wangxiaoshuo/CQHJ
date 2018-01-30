@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>评审列表</title>
+
+    <!--=== 系统图标 ICO ===-->
+    <link rel="Shortcut Icon" href="#">
+
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="../css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="../css/fstyle.css">
+
+    <style>
+
+        /*列表*/
+        .reviewList dl dt {
+            line-height: 50px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            height: 50px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .reviewList dl dt .ellipsis {
+            line-height: 50px;
+            margin: 0px 43px 0px 15px;
+            height: 50px;
+            background-color: transparent!important;
+        }
+
+        .reviewList dl dt .ellipsis:after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 5px;
+            bottom: 12px;
+            width: 4px;
+            height: 80%;
+        }
+
+        .reviewList dl dt .ellipsis.border-audit:after {
+            background-color: #f7a462;
+        }
+        .reviewList dl dt .ellipsis.border-review:after {
+            background-color: #ffd94c;
+        }
+        .reviewList dl dt .ellipsis.border-through:after {
+            background-color: #26c33e;
+        }
+        .reviewList dl dt .ellipsis.border-succeed:after {
+            background-color: #03a9f4;
+        }
+        .reviewList dl dt .ellipsis.border-fail:after {
+            background-color: #f55356;
+        }
+        .reviewList dl dt .ellipsis.border-failure:after {
+            background-color: #ccc9c9;
+        }
+
+        .ellipsis {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+        }
+
+        .reviewList .keUpDownToggleBtn {
+            background: url(http://www.sobey.com/statics/new/images/m2cs_icon2.png) no-repeat;
+            display: block;
+            height: 21px;
+            width: 21px;
+            position: absolute;
+            top: 15px;
+            right: 17px;
+        }
+
+        .reviewList dl dt.on .keUpDownToggleBtn {
+            background: url(http://www.sobey.com/statics/new/images/m2cs_icon1.png) no-repeat;
+        }
+
+        .reviewList dl dd {
+            color: #666;
+            font-size: 14px !important;
+            line-height: 22px;
+            padding: 20px;
+            display: none;
+            background: #F6F6F6;
+            border-top: 1px solid #DDDDDD;
+        }
+
+        .reviewList dl dd a:hover {
+            text-decoration: none;
+            color: #009edb;
+            outline: 0;
+        }
+
+        /*时间轴*/
+        .timeline {
+            position: relative;
+            padding: 0;
+            list-style: none;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 28px;
+            width: 2px;
+            height: 100%;
+            background: #ececec;
+            z-index: 0;
+        }
+
+        .timeline .timeline-item-header {
+            background-color: #ececec;
+            padding: 8px;
+            margin: 8px 0;
+            text-align: center;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            font-size: 12px;
+        }
+
+        .timeline .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline .timeline-item-label {
+            padding: 1px 5px;
+            font-size: 12px;
+            background-color: #ececec;
+            position: absolute;
+            text-align: center;
+            left: 0;
+            top: 0;
+        }
+
+        .timeline .timeline-item-inner {
+            margin-left: 70px;
+            margin-right: 0;
+            padding: 0;
+            position: relative;
+        }
+        .timeline .timeline-item-inner p {
+            color: #585858;
+            font-size: 14px;
+        }
+
+        .text-light {
+            color: #ffffff;
+        }
+
+        .ui-badge-audit {
+            background-color: #f7a462!important;
+        }
+        .ui-badge-review {
+            background-color: #ffd94c!important;
+        }
+        .ui-badge-through {
+            background-color: #26c33e!important;
+        }
+        .ui-badge-succeed {
+            background-color: #03a9f4!important;
+        }
+        .ui-badge-fail {
+            background-color: #f55356!important;
+        }
+        .ui-badge-failure {
+            background-color: #ccc9c9!important;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <!--=== 导航栏 开始 ===-->
+    <!--<header class="ui-header ui-header-positive ui-border-b">-->
+        <!--<i class="ui-icon-return" onclick="history.back()"></i>-->
+        <!--<h1>评审列表</h1><div class="ui-btn-wrap">-->
+    <!--</div>-->
+    <!--</header>-->
+    <!--=== 导航栏 结束 ===-->
+
+    <!--=== loading 开始 ===-->
+    <!--<div class="ui-loading-block show">-->
+        <!--<div class="ui-loading-cnt">-->
+            <!--<i class="ui-loading-bright"></i>-->
+            <!--<p>正在加载中...</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--=== loading 结束 ===-->
+
+    <!--=== 搜索框 开始 ===-->
+    <section id="searchbar" class="j-searchbar">
+        <div class="demo-item">
+           <p class="demo-desc">搜索框</p>
+            <div class="demo-block">
+                <div  class="ui-searchbar-wrap ui-border-b">
+                   <div class="ui-searchbar ui-border-radius">
+                        <i class="ui-icon-search"></i>
+                        <div class="ui-searchbar-text">搜索项目(项目名称)</div>
+                        <div class="ui-searchbar-input">
+                            <input id="search" value="" type="tel" placeholder="搜索项目(项目名称)" autocapitalize="off">
+                        </div>
+                        <i id="search-close" class="ui-icon-close"></i>
+                    </div>
+                    <button class="ui-searchbar-cancel">取消</button>
+               </div>
+            </div>
+        </div>
+    </section>
+    <!--=== 搜索框 结束 ===-->
+
+    <!--=== 内容详情 开始 ===-->
+    <section>
+        <section id="list">
+            <div class="demo-item">
+                <p class="demo-desc" style="border-bottom: 1px solid #e0e0e0;">评审列表</p>
+                <div class="demo-block">
+                    <div class="reviewList">
+                        <dl>
+                            <dt class="">
+                            <div class="ellipsis border-audit">成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目</div>
+                            <a href="javascript:;" class="keUpDownToggleBtn"></a>
+                            </dt>
+                            <dd style="display: none;">
+                                <section class="aui-content">
+                                    <div class="timeline">
+                                        <div class="timeline-item-header">2017年8月16日</div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-item-label ui-badge-audit text-light">待审核</div>
+                                            <div class="timeline-item-inner">
+                                                <p>成功提交成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目报名材料</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="reviewList">
+                        <dl>
+                            <dt class="">
+                                <div class="ellipsis border-fail">成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目</div>
+                                <a href="javascript:;" class="keUpDownToggleBtn"></a>
+                            </dt>
+                            <dd style="display: none;">
+                                <section class="aui-content">
+                                    <div class="timeline">
+                                        <div class="timeline-item-header">2017年8月8日</div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-item-label ui-badge-audit text-light">待审核</div>
+                                            <div class="timeline-item-inner">
+                                                <p>成功提交成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目报名材料</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="timeline-item-header">2017年8月10日</div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-item-label ui-badge-succeed text-light">报名成功</div>
+                                            <div class="timeline-item-inner">
+                                                <p>成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目审核已通过</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="timeline-item-header">2017年8月15日</div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-item-label ui-badge-fail text-light">评审失败</div>
+                                            <div class="timeline-item-inner">
+                                                <p>成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目评审失败</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="reviewList">
+                        <dl>
+                            <dt class="">
+                                <div class="ellipsis border-through">成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目</div>
+                                <a href="javascript:;" class="keUpDownToggleBtn"></a>
+                            </dt>
+                            <dd style="display: none;">
+                                <section class="aui-content">
+                                    <div class="timeline">
+                                        <div class="timeline-item-header">2017年8月1日</div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-item-label ui-badge-audit text-light">待审核</div>
+                                            <div class="timeline-item-inner">
+                                                <p>成功提交成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目报名材料</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="timeline-item-header">2017年8月5日</div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-item-label ui-badge-succeed text-light">报名成功</div>
+                                            <div class="timeline-item-inner">
+                                                <p>成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目审核已通过</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="timeline-item-header">2017年8月7日</div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-item-label ui-badge-through text-light">评审通过</div>
+                                            <div class="timeline-item-inner">
+                                                <p>成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目评审成功</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--=== 内容详情 结束 ===-->
+
+    <!--=== JQUERY(第三方) JS ===-->
+    <script src="../js/common/jquery.min.js"></script>
+    <!--=== ZEPTO(第三方) JS ===-->
+    <script src="../js/common/zepto.min.js"></script>
+    <!--=== FROZEN(第三方) JS ===-->
+    <script src="../js/common/frozen.js"></script>
+
+    <script type="text/javascript">
+        $(".reviewList dt").click(function(){
+            if($(this).next("dd").css("display")=="none"){
+                $(".reviewList dt").removeClass("on");
+                $(".reviewList dd").slideUp(300);
+                $(this).addClass("on");
+                $(this).next("dd").slideDown(300);
+            }else{
+                $(this).removeClass("on");
+                $(this).next("dd").slideUp(300);
+            }
+        });
+
+        $('.ui-searchbar').on("tap",function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+        $('.ui-searchbar-cancel').on("tap",function(){
+            $('.ui-searchbar-wrap').removeClass('focus');
+        });
+
+
+        // 清空input框内容
+        $('#search-close').click(function () {
+            $('#search').val("");
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+.idea/
+.*.swp
+.*.swn
+.DS_Store
+.sass-cache/
+
+dist/
+node_modules/
+upload/
+
+**/target/css/*.css
+**/target/js/*.js
+
+pm2.json
+config.js
+
+property.json

@@ -1,0 +1,154 @@
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <title>个人中心</title>
+
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="/common/css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="/common/css/style.css">
+</head>
+<body>
+    <!--=== 导航栏 开始 ===-->
+    <header class="ui-header ui-header-positive ui-border-b">
+        <span style="font-size: 14px">个人信息</span>
+    </div>
+    </header>
+    <!--=== 导航栏 结束 ===-->
+
+  <!--  === loading 开始 ===
+    <div class="ui-loading-block show">
+        <div class="ui-loading-cnt">
+            <i class="ui-loading-bright"></i>
+            <p>正在加载中...</p>
+        </div>
+    </div>-->
+    <!--=== loading 结束 ===-->
+
+    <!--=== 内容详情 开始 ===-->
+    <section class="ui-container">
+        <section id="form" class="render">
+            <script type="text/html" id="tpl">
+                <%for(i=0;i < data.length;i++){%>
+            <div class="demo-item">
+                <p class="demo-desc">基本信息</p>
+                <div class="demo-block">
+                    <div class="ui-form ui-border-t">
+                        <form action="#">
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">姓名</label>
+                                <input type="text" value="<%=data[i].name%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">电话</label>
+                                <input type="text" value="<%=data[i].tel%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">邮箱</label>
+                                <input type="text" value="<%=data[i].email%>" readonly="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+          <div class="demo-item">
+                <p class="demo-desc">公司信息</p>
+                <div class="demo-block">
+                    <div class="ui-form ui-border-t">
+                        <form action="#">
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">公司全称</label>
+                                <input type="text" value="<%=data[i].enterprise%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">公司地址</label>
+                                <input type="text" value="<%=data[i].address%>" readonly="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <p class="demo-desc">银行信息</p>
+                <div class="demo-block">
+                    <div class="ui-form ui-border-t">
+                        <form action="#">
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">户名</label>
+                                <input type="text" value="<%=data[i].base_account%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">开户行</label>
+                                <input type="text" value="<%=data[i].bank%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">账号</label>
+                                <input type="text" value="<%=data[i].account%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">纳税人识别号</label>
+                                <input type="text" value="<%=data[i].number%>" readonly="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+          <div class="demo-item">
+                <p class="demo-desc">营业执照信息</p>
+                <div class="demo-block">
+                    <section class="ui-panel">
+                        <ul class="ui-grid-trisect">
+                            <%for(j=0;j < data[i].business_licences.length;j++){%>
+                            <li>
+                                <img src="/<%=data[i].business_licences[j]%>" alt="" style="width: 110px;height: 110px">
+                            </li>
+                            <%}%>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <%}%>
+            </script>
+        </section>
+    </section>
+    <div class="hidden aa">{{users}}</div>
+    <!--=== 内容详情 结束 ===-->
+
+    <!--=== JQUERY(第三方) JS ===-->
+    <!--<script src="../js/common/jquery.min.js"></script>-->
+    <!--=== ZEPTO(第三方) JS ===-->
+    <script src="/common/js/zepto.min.js"></script>
+    <!--=== FROZEN(第三方) JS ===-->
+    <script src="/common/js/frozen.js"></script>
+    <script type="text/javascript" src="/lib/template-native.js"></script>
+    <script>
+        $(function(){
+            var aa = $(".aa").text()
+            var data = JSON.parse(aa)
+            $(".render").html(template("tpl",{data:data}))
+        });
+    </script>
+    <script class="demo-script">
+        (function (){
+            $("#alteration").tap(function(){
+                var dia=$.dialog({
+                    title:'温馨提示',
+                    content:'变更公司信息，需上传加盖公司公章的变更申请',
+                    button:["申请","取消"]
+                });
+
+                dia.on("dialog:action",function(e){
+                    console.log(e.index)
+                });
+                dia.on("dialog:hide",function(e){
+                    console.log("dialog hide")
+                });
+            })
+        })();
+    </script>
+
+
+</body>

@@ -1,0 +1,79 @@
+<head>
+    <title>发布公告</title>
+    <style>
+        .wu-example {
+            width:60%;
+            float: left;
+            position: relative;
+            margin-top: 20px;
+            margin-left: -37px;
+            background-color: #fafafa;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, .05);
+            border-color: #e5e5e5 #eee #eee;
+            border-style: solid;
+            border-width: 1px 0;
+        }
+    </style>
+</head>
+<body>
+<article class="page-container">
+    <!--<form class="form form-horizontal" id="form-member-add">-->
+        <input type="hidden" id="id" name="id" value="0"/>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="float: left;margin-left: 19px;margin-top:19px">
+                上传附件：
+            </label>
+            <div id="uploader" class="wu-example">
+                <div class="queueList">
+                    <div id="dndArea" class="placeholder">
+                        <div id="filePicker" class="webuploader-container"><div class="webuploader-pick">点击选择文件</div><div id="rt_rt_1boblrdcj1akd15391csg13j5te51" style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+                        <p>或将文件拖到这里</p>
+                    </div>
+                    <ul class="filelist"></ul></div>
+                <div class="statusBar" style="display:none;">
+                    <div class="progress" style="display: none;">
+                        <span class="text">0%</span>
+                        <span class="percentage" style="width: 0%;"></span>
+                    </div><div class="info">共0张（0B），已上传0个文件</div>
+                    <div class="btns">
+                        <div id="filePicker2" class="webuploader-container"><div class="webuploader-pick">继续添加</div><div id="rt_rt_1boblrdd6jdr1n1pbsd1eb51vre6" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div><div class="uploadBtn state-pedding hidden upload-material">开始上传</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row cl upload_btn">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    <!--</form>-->
+
+</article>
+<div class="hidden aa">{{project}}</div>
+<div class="hidden kind">{{kind}}</div>
+<!--请在下方写此页面业务相关的脚本-->
+<!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+<script type="text/javascript" src="/common/js/common/util.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var project= $(".aa").text()
+        var kind= $(".kind").text()
+        $(".btn").on("click",function(){
+            if($(".filelist").has("li").length > 0){
+                $.ajax({
+                    url:"/set.html",
+                    type:"post",
+                    data:{project:project,kind:kind},
+                    success:function(res){
+                        $(".uploadBtn").click()
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            }
+        })
+
+    });
+</script>
+</body>

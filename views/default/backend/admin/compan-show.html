@@ -1,0 +1,37 @@
+<head>
+	<title>用户信息</title>
+</head>
+<body>
+	<div class="cl pd-20" style=" background-color:#5bacb6">
+		<img class="avatar size-XL l" src={{data.tx}}>
+		<dl style="margin-left:80px; color:#fff">
+			<dt>
+				<span class="f-18">{{data.name}}</span>
+			</dt>
+			<dd class="pt-10 f-12" style="margin-left:0">普通用户</dd>
+		</dl>
+	</div>
+	<div class="pd-20">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th class="text-r">手机：</th>
+					<td>{{data.tel}}</td>
+				</tr>
+				<tr>
+					<th class="text-r">邮箱：</th>
+					<td>{{data.email}}</td>
+				</tr>
+				<tr>
+					<th class="text-r">地址：</th>
+					<td>{{data.address}}</td>
+				</tr>
+				<tr>
+					<th class="text-r">注册时间：</th>
+					<td>{{data.registerTime}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>

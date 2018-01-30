@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "CQ-APP",
+      "script": "app.js",
+      "max_memory_restart": "5G",
+      "instances": 1,
+      "exec_mode": "fork",
+      "merge_logs": true,
+      "env": {
+        "PORT": 5151,
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

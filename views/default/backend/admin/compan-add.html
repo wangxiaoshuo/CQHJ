@@ -1,0 +1,205 @@
+<head>
+	<title>添加用户</title>
+</head>
+<body>
+	<article class="page-container">
+		<form action="" method="post" class="form form-horizontal" id="form-member-add">
+			<input type="hidden" id="id" name="id" value="0"/>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					姓名：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					手机：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="mobile" name="mobile">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					邮箱：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" placeholder="@" name="email" id="email">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">地址：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder=""name="address" id="address">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					公司全称：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" name="compan" id="enterprise">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					纳税人识别号：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" name="number" id="number">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					基本账户户名：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" name="base"
+						   id="base">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					开户行：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" name="bank"
+						   id="bank">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">
+					<span class="c-red">*</span>
+					账号：
+				</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" name="account" id="account">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">附件：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<span class="btn-upload form-group">
+						<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
+						<a href="javascript:;" class="btn btn-primary radius upload-btn">
+							<i class="Hui-iconfont">&#xe642;</i>
+							浏览文件
+						</a>
+						<input type="file" multiple name="file-2" class="input-file">
+					</span>
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
+			</div>
+		</form>
+	</article>
+	<!--请在下方写此页面业务相关的脚本-->
+	<!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+	<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript" src="/common/js/common/util.js"></script>
+	<script type="text/javascript">
+	$(function(){
+        var id=getUrlParams(window.location.search,"id")
+        if (id!=null){
+            $.ajax({
+                type: 'POST',
+                url: '/admin/compan-edit.html',
+                dataType: 'json',
+                data:{
+                    id:id
+                },
+                success: function(data){
+                    console.log(data)
+                    $("#username").val(data.name);
+                    $("#mobile").val(data.tel);
+                    $("#email").val(data.email);
+                    $("#address").val(data.address);
+                    $("#number").val(data.number);
+                    $("#base").val(data.base_account);
+                    $("#bank").val(data.bank);
+                    $("#enterprise").val(data.enterprise);
+                    $("#account").val(data.account);
+                },
+                error:function(data) {
+                    console.log("111111")
+                    console.log(data);
+                },
+            });
+        }
+		$('.skin-minimal input').iCheck({
+			checkboxClass: 'icheckbox-blue',
+			radioClass: 'iradio-blue',
+			increaseArea: '20%'
+		});
+
+		$("#form-member-add").validate({
+			rules:{
+				username:{
+					required:true,
+					minlength:2,
+					maxlength:16
+				},
+				sex:{
+					required:true,
+				},
+				mobile:{
+					required:true,
+					isMobile:true,
+				},
+				email:{
+					required:true,
+					email:true,
+				},
+				uploadfile:{
+					required:true,
+				},
+
+			},
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+                var name=$("#username").val();
+                var tel=$("#mobile").val();
+                var email=$("#email").val();
+                var address=$("#address").val();
+                var number=$("#number").val();
+                var bank=$("#bank").val();
+                var enterprise=$("#enterprise").val();
+                var account=$("#account").val();
+                var base_account=$("#base").val();
+                $.ajax({
+                    type: 'POST',
+                    url: "/admin/compan-add.html" ,
+                    data:{name:name,tel:tel,email:email,address:address,number:number,bank:bank,enterprise:enterprise,account:account,base_account:base_account,id:id},
+                    dataType: 'json',
+                    success: function(data){
+                        layer.msg('操作成功!', {icon: 6,time:1000});
+                        parent.location.replace("/admin/compan.html")
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    },
+                    error: function(XmlHttpRequest, textStatus, errorThrown){
+                        alert(22)
+                        layer.msg('添加失败!',{icon:1,time:1000});
+                    }
+                });
+			}
+		});
+	});
+	</script>
+</body>

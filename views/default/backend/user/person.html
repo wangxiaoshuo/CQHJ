@@ -1,0 +1,312 @@
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <title>个人中心</title>
+
+    <link rel="stylesheet" href="/common/css/pages.css">
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="/common/css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="/common/css/fstyle.css">
+</head>
+<body>
+<!--=== 导航栏 开始 ===-->
+<header class="ui-header ui-header-positive ui-border-b">
+    <span style="font-size: 14px">资料管理</span>
+</header>
+<!--=== 导航栏 结束 ===-->
+
+<!--=== 内容详情 开始 ===-->
+<section class="ui-container" style="border: 1px solid #ccc;width:45%;float:left;height:822px;margin-left:19px;margin-top: 47px;">
+    <section id="form" class="render2">
+        <script type="text/html" id="tpl2">
+            <%for(i=0;i < data.length;i++){%>
+            <div class="demo-item">
+                <p class="demo-desc">基本信息</p>
+                <div class="demo-block">
+                    <div class="ui-form ui-border-t">
+                        <form action="#">
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">姓名</label>
+                                <input type="text" value="<%=data[i].name%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">电话</label>
+                                <input type="text" value="<%=data[i].tel%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">邮箱</label>
+                                <input type="text" value="<%=data[i].email%>" readonly="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <p class="demo-desc">公司信息</p>
+                <div class="demo-block">
+                    <div class="ui-form ui-border-t">
+                        <form action="#">
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">公司全称</label>
+                                <input type="text" value="<%=data[i].enterprise%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">公司地址</label>
+                                <input type="text" value="<%=data[i].address%>" readonly="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <p class="demo-desc">银行信息</p>
+                <div class="demo-block">
+                    <div class="ui-form ui-border-t">
+                        <form action="#">
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">户名</label>
+                                <input type="text" value="<%=data[i].base_account%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">开户行</label>
+                                <input type="text" value="<%=data[i].bank%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">账号</label>
+                                <input type="text" value="<%=data[i].account%>" readonly="">
+                            </div>
+                            <div class="ui-form-item ui-form-item-show ui-border-b">
+                                <label for="#">纳税人识别号</label>
+                                <input type="text" value="<%=data[i].number%>" readonly="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-item">
+                <p class="demo-desc">营业执照信息</p>
+                <div class="demo-block">
+                    <section class="ui-panel">
+                        <ul class="ui-grid-trisect">
+                            <%for(j=0;j < data[i].business_licences.length;j++){%>
+                            <li>
+                                <img src="/<%=data[i].business_licences[j]%>" alt="" style="width: 150px;height: 150px">
+                            </li>
+                            <%}%>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <%}%>
+        </script>
+    </section>
+</section>
+<section class="ui-container" style="border: 1px solid #ccc;width:51%;height:822px;float:left;margin-left:10px;margin-top: 47px;">
+    <section id="form2">
+            <div class="demo-item">
+                <p class="demo-desc">我报名的项目</p>
+                <div id="render">
+                    <script type="text/html" id="tpl">
+                        <%if(data.length > 0){%>
+                        <%for(i=0;i < data.length;i++){%>
+                        <div class="demo-block">
+                            <div class="ui-form ui-border-t">
+                                <form action="#">
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目名称</label>
+                                        <input type="text" value="<%=data[i].name%>" readonly="">
+                                    </div>
+                                  <%if(data[i].progress[0] == 1 && !data[i].result[0]){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-warning radius" style="margin-left: 15%;">审核中</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label radius" style="margin-left: 15%;">无</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <div style="margin-left: 16%;font-size: 12px;color: tomato;font-weight: 600;">暂不需上传</div>
+                                    </div>
+                                    <%}%>
+                                    <%if(data[i].result[0] == 2){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-success radius" style="margin-left: 15%;">竞标成功</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label label-warning radius" style="margin-left: 15%;">未上传</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <a class="ui-btn ui-btn-progress bm " onclick="upload_material('上传缴纳凭证','/upload/material.html?project=<%=data[i].name%>&kind=pz','<%=data[i].name%>','','410')"  style="margin-left:16%;background: seagreen;color:#fff;margin-top:6px;text-decoration: none" onmouseover="this.style.cursor='pointer'">上传</a>
+                                    </div>
+                                    <%}%>
+                                    <%if(data[i].result[0] == 3){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-success radius" style="margin-left: 15%;">竞标成功</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label label-warning radius" style="margin-left: 15%;">待审核</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <a class="ui-btn ui-btn-progress bm " onclick="upload_material('上传缴纳凭证','/upload/material.html?project=<%=data[i].name%>&kind=pz','<%=data[i].name%>','','410')"  style="margin-left:16%;background: seagreen;color:#fff;margin-top:6px;text-decoration: none" onmouseover="this.style.cursor='pointer'">上传</a>
+                                    </div>
+                                    <%}%>
+                                    <%if(data[i].result[0] == 4){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-success radius" style="margin-left: 15%;">竞标成功</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label label-success" style="margin-left: 15%;">审核通过</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <a class="ui-btn ui-btn-progress bm " onclick="upload_material('上传缴纳凭证','/upload/material.html?project=<%=data[i].name%>&kind=pz','<%=data[i].name%>','','410')"  style="margin-left:16%;background: seagreen;color:#fff;margin-top:6px;text-decoration: none" onmouseover="this.style.cursor='pointer'">上传</a>
+                                    </div>
+                                    <%}%>
+                                    <%if(data[i].result[0] == -1){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-success radius" style="margin-left: 15%;">竞标成功</span>
+
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label label-danger radius" style="margin-left: 15%;">审核失败，重新上传</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <a class="ui-btn ui-btn-progress bm " onclick="upload_material('上传缴纳凭证','/upload/material.html?project=<%=data[i].name%>&kind=pz','<%=data[i].name%>','','410')"  style="margin-left:16%;background: seagreen;color:#fff;margin-top:6px;text-decoration: none" onmouseover="this.style.cursor='pointer'">上传</a>
+                                    </div>
+                                    <%}%>
+
+                                    <%if(data[i].result[0] == -2){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-success radius" style="margin-left: 15%;">竞标成功</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label label-danger radius" style="margin-left: 15%;">上传超时</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <div style="margin-left: 16%;font-size: 12px;color: tomato;font-weight: 600;">上传超时</div>
+                                    </div>
+                                    <%}%>
+
+                                    <%if(data[i].result[0] == -4){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-danger radius" style="margin-left: 15%;">竞标失效</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label radius" style="margin-left: 15%;">无</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <div style="margin-left: 16%;font-size: 12px;color: tomato;font-weight: 600;">无</div>
+                                    </div>
+                                    <%}%>
+
+                                    <%if(data[i].result[0] == -3){%>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">项目状态</label>
+                                        <span class="label label-danger radius" style="margin-left: 15%;">竞标失败</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">缴纳凭证状态</label>
+                                        <span class="label radius" style="margin-left: 15%;">无</span>
+                                    </div>
+                                    <div class="ui-form-item ui-form-item-show ui-border-b">
+                                        <label for="#">上传缴纳凭证</label>
+                                        <div style="margin-left: 16%;font-size: 12px;color: tomato;font-weight: 600;">无需上传</div>
+                                    </div>
+                                    <%}%>
+
+                                </form>
+                            </div>
+                        </div>
+                        <%}%>
+                        <%}%>
+                        <%if(data.length == 0){%>
+                        <div style="margin-left: 10px;font-size: 14px;color: coral;">
+                            尚无任何报名项目
+                        </div>
+                        <%}%>
+                    </script>
+                </div>
+                <div class="col-md-12">
+                    <ul class="pages col-md-4">
+                        <li class="firstPage">首页</li>
+                        <li class="prePage">上一页</li>
+                        <li class="nextPage">下一页</li>
+                        <li class="lastPage">末页</li>
+                        <div class="only">共一页</div>
+                    </ul>
+                </div>
+            </div>
+
+    </section>
+</section>
+<div class="hidden aa">{{users}}</div>
+<div class="hidden length">{{length}}</div>
+<div class="hidden bm">{{bm}}</div>
+<!--=== 内容详情 结束 ===-->
+
+<!--=== JQUERY(第三方) JS ===-->
+<!--<script src="../js/common/jquery.min.js"></script>-->
+<!--=== ZEPTO(第三方) JS ===-->
+<script src="/common/js/zepto.min.js"></script>
+<!--=== FROZEN(第三方) JS ===-->
+<script src="/common/js/frozen.js"></script>
+<script type="text/javascript" src="/lib/template-native.js"></script>
+<script src="/common/js/pages.js"></script>
+<script>
+    $(function(){
+        var aa = $(".aa").text()
+        var data = JSON.parse(aa)
+        var bm = $(".bm").text()
+        var bmProject = JSON.parse(bm)
+        $(".render2").html(template("tpl2",{data:data}))
+        $("#render").html(template("tpl",{data:bmProject}))
+        var le = $('.length').text()
+        var length = JSON.parse(le)
+        var pageLength = length;
+        var l = Math.ceil(pageLength/4);
+        page(l,"/user/project_page.html");
+    });
+    function upload_material(title,url,p,w,h){
+        $.ajax({
+            url:"/user/pz.html",
+            type:"post",
+            data:{name:p},
+            success:function(res){
+                if(res.verify == true){
+                    layer.msg('您已提交过凭证，无需重复提交!',{icon:6,time:1000});
+
+                }else if(res.verify == false){
+                    layer_show(title,url,w,h);
+                }
+            },
+            error:function (err) {
+                console.log(err)
+            }
+        })
+    }
+</script>
+
+</body>

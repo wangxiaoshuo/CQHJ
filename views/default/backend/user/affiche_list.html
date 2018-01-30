@@ -1,0 +1,170 @@
+<head>
+    <title>公告列表</title>
+    <!--公告列表(用户)-->
+    <style>
+        .affiche-tab .title {
+            font-weight: 600;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .affiche-tab span {
+            font-weight: 600;
+            color: #232222;
+            font-size: 14px;
+        }
+
+        .affiche-tab p {
+            margin-bottom: 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #383833;
+        }
+
+        .affiche-tab p>span {
+            color: #3a3838;
+            padding-left: 1rem;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .affiche-tab tbody tr td {
+            line-height: 2;
+        }
+    </style>
+    <link rel="stylesheet" href="/common/css/pages.css">
+</head>
+<body>
+<!--=== 当前位置 开始 ===-->
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页
+    <span class="c-gray en">&gt;</span>
+    项目列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<!--=== 当前位置 结束 ===-->
+
+<div class="page-container" style="background: beige;margin-top: -21px;">
+    <!--=== 列表 开始 ===-->
+    <div class="mt-20">
+        <table class="table table-border affiche-tab">
+            <thead>
+                <tr class="text-c">
+                    <th scope="col" colspan="12" class="title">公告列表</th>
+                </tr>
+            </thead>
+            <tbody id="render">
+            <script type="text/html" id="tpl">
+                <%for(i=0;i < data.length;i++){%>
+                <tr class="text-c">
+                    <td width="200"><%=data[i].update_time%></td>
+                    <td colspan="4" class="text-l">
+                        <span class="noticeName"><%=data[i].name%></span>
+                    </td>
+                    <td colspan="2" class="text-l">
+                        <p>所属项目:<span><%=data[i].project%></span></p>
+                    </td>
+                    <td width="200">
+                        <div>
+                            <span>公告附件</span>
+                            <%if(data[i].material.length > 0){%>
+                            <div>
+                                <%for(j=0;j < data[i].material.length;j++){%>
+                                <a onclick="materialShow('<%=data[i].material[j].name%>','<%=data[i].material[j].url%>','<%=data[i].project%>','<%=data[i].name%>')" href="javascript:void(0)" style="display: block;margin-bottom:5px"><%=data[i].material[j].name%></a>
+                                <%}%>
+                            </div>
+                            <%}%>
+                            <%if(data[i].material.length == 0){%>
+                            <div>
+                                此公告无附件
+                            </div>
+                            <%}%>
+                        </div>
+                    </td>
+                </tr>
+                <%}%>
+            </script>
+            </tbody>
+        </table>
+        <div class="col-md-12">
+            <ul class="pages col-md-4">
+                <li class="firstPage">首页</li>
+                <li class="prePage">上一页</li>
+                <li class="nextPage">下一页</li>
+                <li class="lastPage">末页</li>
+                <div class="only">共一页</div>
+            </ul>
+
+        </div>
+    </div>
+    <!--=== 列表 结束 ===-->
+</div>
+<div class="hidden aa">{{projects}}</div>
+<div class="hidden length">{{length}}</div>
+<input type="text" class="select hidden" value="-1">
+<script type="text/javascript" src="/lib/template-native.js"></script>
+<script src="/common/js/pages.js"></script>
+<script>
+    $(function(){
+        var aa = $(".aa").text()
+        var data = JSON.parse(aa)
+        var le = $('.length').text()
+        var length = JSON.parse(le)
+        $(".r strong").html(length)
+        $("#render").html(template("tpl",{data:data}))
+        var pageLength = length;
+        var l = Math.ceil(pageLength/10);
+        page(l,"/admin/affiche_page.html");
+    })
+
+
+    //查看材料
+    function materialShow(name,url,pro,str){
+        var m = str.indexOf("选定通知")
+        console.log(str)
+        console.log(m)
+        if(m >= 0){
+            var name = name.split('.')
+            var type = name[name.length-1]
+            if(type == 'docx'){
+                var u = encodeURI(url)
+                location.href = "/material.html?url="+u
+            }else if(type == 'pdf'){
+                var u = encodeURI(url)
+                location.href = "/pdf.html?file="+u
+            }else{
+                layer.msg('无法打开该文件类型，仅支持docx和pdf格式!',{icon:1,time:2000});
+            }
+        }else{
+            $.ajax({
+                url:"/verify/file.html",
+                type:"post",
+                data:{project:pro},
+                success:function(res){
+                    if(res.status == 1){
+                        var name = name.split('.')
+                        var type = name[name.length-1]
+                        if(type == 'docx'){
+                            var u = encodeURI(url)
+                            location.href = "/material.html?url="+u
+                        }else if(type == 'pdf'){
+                            var u = encodeURI(url)
+                            location.href = "/pdf.html?file="+u
+                        }else{
+                            layer.msg('无法打开该文件类型，仅支持docx和pdf格式!',{icon:1,time:2000});
+                        }
+                    }else{
+                        layer.msg('该附件已过期!',{time:1000});
+                    }
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+    }
+</script>
+</body>

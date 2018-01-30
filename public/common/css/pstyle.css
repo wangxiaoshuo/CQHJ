@@ -1,0 +1,229 @@
+@charset "utf-8";
+
+/* 默认 黑色 */
+/*全站默认字体颜色*/
+a {
+    color:#333
+}
+
+a:hover,a:focus,.maincolor,.maincolor a {
+    color:#06c
+}
+
+.navbar {
+    background:#222
+}
+
+/*顶部导航*/
+.navbar-logo,.navbar-logo-m,.navbar-slogan,.navbar-userbar {
+    color:#fff
+}
+
+/*logo 及 用户信息文字颜色*/
+.navbar-logo, .navbar-logo-m {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.navbar-logo:hover,.navbar-logo-m:hover {
+    color:#fff;
+    text-decoration: none
+}
+
+.navbar-nav > ul > li, .navbar-nav > ul > li > a {
+    color:#fff
+}
+
+/*顶部导航文字颜色*/
+.navbar-userbar > ul> > li,.navbar-userbar > ul> > li > a {
+    color:#fff
+}
+
+.Hui-aside{}
+
+/*侧边栏*/
+.Hui-aside .menu_dropdown dt {
+    color:#333
+}
+
+/*左侧二级导航菜单*/
+.Hui-aside .menu_dropdown dt:hover {
+    color:#148cf1
+}
+
+.Hui-aside .menu_dropdown dt:hover [class^="icon-"] {
+    color:#7e8795
+}
+
+.Hui-aside .menu_dropdown li a {
+    color:#666;
+    border-bottom: 1px solid #e5e5e5
+}
+
+.Hui-aside .menu_dropdown li a:hover {
+    color:#148cf1;
+    background-color:#fafafa
+}
+
+.Hui-aside .menu_dropdown li.current a,.menu_dropdown li.current a:hover {
+    color:#148cf1
+}
+
+.Hui-aside .menu_dropdown dt .Hui-iconfont {
+    color:#a0a7b1
+}
+
+.Hui-aside .menu_dropdown dt .menu_dropdown-arrow {
+    color:#b6b7b8
+}
+
+.dislpayArrow a {
+    background:url(../images/icon_arrow.png) no-repeat 0 0
+}
+
+
+/*导航栏 高度*/
+.navbar-wrapper {
+    height: 53px;
+}
+
+.navbar .logo {
+    height: 53px;
+    line-height: 53px;
+}
+
+.navbar-nav>ul>li, .navbar-nav>ul>li>a {
+    line-height: 53px;
+}
+
+#Hui-msg .badge {
+    left: 20px;
+    top: 10px;
+}
+
+/*左边栏 菜单*/
+.Hui-aside {
+    top: 52px;
+}
+
+.Hui-aside .menu_dropdown dt {
+    line-height: 53px;
+}
+
+.Hui-aside .menu_dropdown dt .Hui-iconfont {
+    margin-right: 10px;
+}
+
+.Hui-aside .menu_dropdown dt a:hover {
+    text-decoration: none;
+}
+
+/*内容区域*/
+.Hui-article-box {
+    top: 53px;
+}
+
+/*loading*/
+.loading {
+    width: 100%!important;
+    position: absolute;
+    top: 40%;
+}
+
+/*关闭当前窗口*/
+#jqContextMenu {
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+}
+
+/*评分表*/
+.table-bg.scoring-table .ht-div {
+    /*background-image: url(../images/xiexian.png);*/
+    background-size: 100% 100%;
+}
+
+.table-bg.scoring-table .ht-div td {
+    border: none;
+}
+
+table th {
+    text-align: center;
+}
+table th.title {
+    font-size: 16px;
+}
+
+table tbody .red {
+    color: red;
+}
+
+table tbody td input[type="text"] {
+    border: none;
+    text-align: center;
+}
+
+
+ thead th {
+    background-color: rgba(245, 250, 254, 0.66);
+}
+
+/*td[class=first]:before{
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 415px;!*这里需要自己调整，根据td的宽度和高度*!
+    top: 16.7rem;
+    left: 0.9rem;
+    background-color: #dddddd;
+    display: block;
+    transform: rotate(-31deg);!*这里需要自己调整，根据线的位置*!
+    transform-origin: top;
+}*/
+
+/*
+!*>=1366的设备*!
+@media (min-width: 1366px){
+    #scoring-table {
+        width: 1323px;
+    }
+
+    .table-bg.scoring-table td[class=first]:before{
+        height:346px;!*这里需要自己调整，根据td的宽度和高度*!
+        top:18rem;
+        left:16px;
+        transform: rotate(-15deg);!*这里需要自己调整，根据线的位置*!
+    }
+}
+
+
+!*>=1440的设备*!
+@media (min-width: 1440px){
+    #scoring-table {
+        width: 1395px;
+    }
+
+    .table-bg.scoring-table td[class=first]:before{
+        height: 415px;!*这里需要自己调整，根据td的宽度和高度*!
+        top: 16.7rem;
+        left: 0.9rem;
+        transform: rotate(-31deg);!*这里需要自己调整，根据线的位置*!
+    }
+}
+
+
+!*>=1920的设备*!
+@media (min-width: 1918px){
+    #scoring-table {
+        width: 1490px;
+    }
+
+    .table-bg.scoring-table td[class=first]:before{
+        height: 360px;!*这里需要自己调整，根据td的宽度和高度*!
+        top: 17rem;
+        left: 20px;
+        transform: rotate(-32deg);
+    }
+}*/
+
+

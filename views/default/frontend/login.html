@@ -1,0 +1,261 @@
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>用户登录</title>
+<script type="text/javascript" src="js/cardview.js"></script>
+<style type="text/css">
+  html,body {
+    width: 100%;
+    height: 100%;
+    margin:0px;
+    padding:0px;
+    font-family: "微软雅黑";
+    font-size: 10px;
+    color:#303439;
+    overflow: hidden;
+  }
+  #wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding:10%;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    background: url(/common/images/bg.jpg) no-repeat;
+    background-size: cover;
+  }
+  h1 {
+    color:#303439;
+    text-align: center;
+    font-size: 3.5rem;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+  #wrapper .signIn,#wrapper .signOut {
+    position: absolute;
+    width: 80%;
+    height: 320px;
+    background: #fff;
+    border-radius: 10px;
+    padding:5%;
+    top:0px;
+    bottom: 0px;
+    margin: auto;
+    box-sizing: border-box;
+    z-index: 99999;
+  }
+  #wrapper .signIn {
+    right: -90%;
+    height: 430px;
+  }
+  .container1 {
+    position: relative;
+  }
+  form {
+    margin:0 auto;
+    width: 90%;
+  }
+  div.form-group:not(.formGroup),div.btn-group {
+    width: 100%;
+    height: 42px;
+    position: relative;
+    margin-top:15px;
+  }
+  div.formGroup {
+    font-size: 1.4rem;
+    position: relative;
+  }
+  div.formGroup span {
+    display: inline-block;
+    height: 20px;
+  }
+  div.formGroup span:nth-child(1) input{
+    vertical-align: middle;
+    height: 14px;
+  }
+   div.formGroup span:nth-child(2){
+      position: absolute;
+      right: 0px;
+   }
+  div.form-group>label,div.btn-group>label {
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    min-width: 40px;
+    margin-left: 6px;
+    text-align: right;
+    box-sizing: border-box;
+  }
+  div.form-group>input,div.btn-group>input:not([type='checkbox']) {
+    display: block;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    padding-left: 50px;
+    box-sizing: border-box;
+  }
+  div.form-group:nth-child(4)>input{
+    padding-left:62px !important;
+  }
+  input:focus,button:focus {
+    outline: none;
+  }
+  button.sendPhone {
+    position: absolute;
+    background: #303439;
+    top:0px;
+    right: 0px;
+    width:10rem;
+    height: 40px;
+    border:1px solid #303439;
+    text-align: center !important;
+    padding:0px !important;
+    border-radius:0px !important;
+    color:#fff;
+  }
+  @media screen and (min-width:320px) and (max-width: 380px) {
+    button.sendPhone {
+      width: 7rem;
+    }
+    .btn {
+      width: 6.5rem !important;
+    }
+  }
+  .btn-group {
+    text-align: center;
+  }
+  .btn {
+    width: 8.3rem;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #303439;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .btn:nth-child(2){
+    margin-left:10px;
+  }
+  .btnSignUp {
+    background: #fff;
+  }
+  .btnSignIn,.btnReset {
+    background: #303439;
+    color:#fff;
+  }
+  .bgImg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    filter: url(/common/images/blur.svg#blur);
+  }
+  .blur {    
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background: url(/common/images/bg.jpg) no-repeat;
+    background-size: cover;
+    top: 0px;
+    left: 0px;
+    -webkit-filter: blur(20px); /* Chrome, Opera */
+       -moz-filter: blur(20px);
+        -ms-filter: blur(20px);    
+            filter: blur(20px);
+  }
+  /*动画效果*/
+  .error {
+    animation: errAnimation 200ms;
+  }
+  @keyframes errAnimation {
+    0% {
+      transform: translateX(4px);
+    }
+    20% {
+      transform: translateX(0px);
+    }
+    40% {
+      transform: translateX(-4px);
+    }
+    60% {
+      transform: translateX(0px);
+    }
+    80% {
+      transform: translateX(4px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div class="bgImg">
+    <div class="blur"></div>
+  </div>
+  <div class="signOut">
+    <h1>拆迁还建</h1>
+    <div class="container1">
+      <form action="#" method="post">
+        <div class="form-group">
+            <label for="outUserName">账号:</label>
+            <input type="text" class="outUserName" name="outUserName">
+        </div>
+        <div class="form-group">
+            <label for="outPwd">密码:</label>
+            <input type="password" class="outPwd" name="outPwd">
+        </div>
+        <div class="form-group formGroup" style=" width: 100%;">
+            <span class="remeberUser">
+              <input type="checkbox">记住账号
+            </span>
+            <span class="forgetPwd">
+              忘记密码?
+            </span>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btnSignUp" id="btnSignUp1">注册</button>
+            <button type="button" class="btn btnSignIn" id="btnSignIn">登录</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+    $(".forgetPwd").on("click",function(){
+        layer.msg('请联系管理员!',{icon:1,time:1000});
+    })
+    $(".btnSignUp").on("click",function(){
+        location.href = "/frontend/info.html"
+    })
+    $(".btnSignIn").on("click",function(){
+        var username = $(".outUserName").val()
+        var password = $(".outPwd").val()
+        $.ajax({
+            url:"/frontend/login.html",
+            type:"post",
+            data:{username:username,password:password},
+            success:function(res){
+                if(res == "success"){
+                    layer.msg('登录成功!',{icon:1,time:1000});
+                    location.href = "/frontend/center.html"
+                }else if(res == "errpassword"){
+                    layer.msg('密码不正确，请重新输入!',{icon:1,time:1000});
+                }else if(res == "exist"){
+                    layer.msg('用户不存在，请重新输入!',{icon:1,time:1000});
+                }
+            },
+            error:function(err){
+                layer.msg('登录失败!',{icon:1,time:1000});
+            }
+        })
+    })
+</script>
+</body>

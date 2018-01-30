@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>项目列表</title>
+
+    <!--=== 系统图标 ICO ===-->
+    <link rel="Shortcut Icon" href="#">
+
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="../css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="../css/fstyle.css">
+</head>
+<body>
+
+    <!--=== 导航栏 开始 ===-->
+    <header class="ui-header ui-header-positive ui-border-b">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+        <h1>项目列表</h1><div class="ui-btn-wrap">
+    </div>
+    </header>
+    <!--=== 导航栏 结束 ===-->
+
+    <!--=== loading 开始 ===-->
+    <!--<div class="ui-loading-block show">-->
+        <!--<div class="ui-loading-cnt">-->
+            <!--<i class="ui-loading-bright"></i>-->
+            <!--<p>正在加载中...</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--=== loading 结束 ===-->
+
+    <!--=== 内容详情 开始 ===-->
+    <section>
+        <section id="list">
+            <div class="demo-item projects">
+                <p class="demo-desc">项目列表</p>
+                <div class="demo-block">
+                    <ul class="ui-list ui-list-text ui-list-active ui-list-cover ui-border-tb">
+                        <li class="ui-border-t">
+                            <div class="ui-list-info">
+                                <div class="title">
+                                    成都拆迁还建工程项目
+                                </div>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="ui-badge ui-btn-primary">进行中</div></li>
+                                        <li><div class="min-title">预估规模 : <a style="color: #06c;">20</a></div></li>
+                                        <li><a href="#">查看附件</a></li>
+                                    </ul>
+                                </div>
+                                <p>四川省成都市高新区天府三街吉泰五路88号香年广场T3-1705号江苏院比选代理（四川）</p>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="min-title">计划工期 : <a>1234567890</a></div></li>
+                                        <li><div class="min-title">服务期限 : <a>1234567890</a></div></li>
+                                    </ul>
+                                </div>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="min-title">应答人数量 : <a>120</a></div></li>
+                                        <li><div class="min-title">履约保证金（元） : <a style="color: #e43b08;">1</a></div></li>
+                                        <li><div class="min-title">选定代理服务费（元）: <a style="color: #e43b08;">10</a></div></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="ui-border-t">
+                            <div class="ui-list-info">
+                                <div class="title">
+                                    成都拆迁还建工程项目
+                                </div>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="ui-badge">失效</div></li>
+                                        <li><div class="min-title">预估规模 : <a style="color: #06c;">20</a></div></li>
+                                        <li><a href="#">查看附件</a></li>
+                                    </ul>
+                                </div>
+                                <p>四川省成都市高新区天府三街吉泰五路88号香年广场T3-1705号江苏院比选代理（四川）</p>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="min-title">计划工期 : <a>1234567890</a></div></li>
+                                        <li><div class="min-title">服务期限 : <a>1234567890</a></div></li>
+                                    </ul>
+                                </div>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="min-title">应答人数量 : <a>120</a></div></li>
+                                        <li><div class="min-title">履约保证金（元）: <a style="color: #e43b08;">1</a></div></li>
+                                        <li><div class="min-title">选定代理服务费（元）: <a style="color: #e43b08;">10</a></div></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--=== 内容详情 结束 ===-->
+
+    <!--=== JQUERY(第三方) JS ===-->
+    <!--<script src="../js/common/jquery.min.js"></script>-->
+    <!--=== ZEPTO(第三方) JS ===-->
+    <script src="../js/common/zepto.min.js"></script>
+    <!--=== FROZEN(第三方) JS ===-->
+    <script src="../js/common/frozen.js"></script>
+
+    <script type="text/javascript">
+        $('.ui-searchbar').tap(function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+        $('.ui-searchbar-cancel').tap(function(){
+            $('.ui-searchbar-wrap').removeClass('focus');
+        });
+    </script>
+</body>
+</html>

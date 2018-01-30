@@ -1,0 +1,292 @@
+﻿<head>
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/common/css/pstyle.css"/>
+	<style>
+		table td,th{border-bottom:1px solid #ccc}
+		.ht-div table td,.ht-div table th{border:none}
+	</style>
+</head>
+<body>
+<!--=== 当前位置 开始 ===-->
+<nav class="breadcrumb" style="position: fixed;top:0px;width:98%">
+	<i class="Hui-iconfont">&#xe67f;</i>
+	首页
+	<span class="c-gray en">&gt;</span>
+	评委打分
+	<a class="btn btn-success radius r save" style="line-height:1.6em;margin-top:3px" href="javascript:void(0)" title="提交" >
+		<i class="Hui-iconfont">&#xe632;</i>
+	</a>
+</nav>
+<!--=== 当前位置 结束 ===-->
+<table class="table table-bordered"  style="margin-top: 18px">
+	<thead>
+	<tr>
+		<th colspan="11" class="name">{{name}}</th>
+	</tr>
+	<tr>
+		<th colspan="11">评委评分表</th>
+	</tr>
+	<tr>
+		<th colspan="2">日期：<span class="time"></span></th>
+		<th colspan="1">地点：</th>
+		<th colspan="8">{{address}}</th>
+	</tr>
+	</thead>
+	<tbody id="render2">
+	<script type="text/html" id="tpl2">
+	<tr>
+		<td rowspan="2" colspan="2">评分项目</td>
+		<td scope="col" colspan="4"><%=tem.part1%></td>
+		<td scope="col" colspan="4"><%=tem.part2%></td>
+		<td rowspan="3" colspan="1" width="5%">合计</td>
+	</tr>
+	<tr>
+		<td width="9%"><%=tem.t1%></td>
+		<td width="12%"><%=tem.t2%></td>
+		<td width="10%"><%=tem.t3%></td>
+		<td width="10%"><%=tem.t4%></td>
+		<td width="10%"><%=tem.t5%></td>
+		<td width="10%"><%=tem.t6%></td>
+		<td width="12%"><%=tem.t7%></td>
+		<td width="15%"><%=tem.t8%></td>
+	</tr>
+	<tr class="">
+		<td class="first" colspan="2">
+			<div class="ht-div">
+				<table>
+					<thead>
+					<tr>
+						<td></td>
+						<td>评审细项</td>
+					</tr>
+					<tr>
+						<td>应答人</td>
+						<td></td>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</td>
+		<td ><%=tem.c1%></td>
+		<td ><%=tem.c2%></td>
+		<td ><%=tem.c3%></td>
+		<td><%=tem.c4%></td>
+		<td ><%=tem.c5%></td>
+		<td><%=tem.c6%></td>
+		<td><%=tem.c7%></td>
+		<td><%=tem.c8%></td>
+	</tr>
+	<tr class="text-c" id="score_vali">
+		<td colspan="2">分值</td>
+		<td><%=tem.s1%></td>
+		<td><%=tem.s2%></td>
+		<td><%=tem.s3%></td>
+		<td><%=tem.s4%></td>
+		<td><%=tem.s5%></td>
+		<td><%=tem.s6%></td>
+		<td><%=tem.s7%></td>
+		<td><%=tem.s8%></td>
+		<td class="red">100</td>
+	</tr>
+	</script>
+	</tbody>
+	<tbody id="render" class="score_valied">
+	<script type="text/html" id="tpl">
+		<%for(i=0;i < data.length;i++){%>
+		<tr class="text-c">
+			<td width="2%" class="number"><%=i+1%></td>
+			<td><%=data[i].enterprise%></td>
+			<td width="9%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="12%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="10%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="10%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="10%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="10%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="12%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="15%">
+				<input type="text" style="width:100%" value="">
+			</td>
+			<td width="5%">
+				<input type="text" class="result<%=i%>" style="width:100%;color:red" readonly>
+			</td>
+		</tr>
+		<%}%>
+	</script>
+	</tbody>
+
+	<tbody id="render3" class="mode2" style="display:none">
+	<script type="text/html" id="tpl3">
+		<tr>
+			<td rowspan="3" colspan="2" style="width:10%"><input type="text" style="width:100%" value="<%=onlyUser[0].enterprise%>"></td>
+			<td scope="col" colspan="2" style="width:16%"><input type="text" style="width:100%" value="评审模式"></td>
+			<td scope="col" colspan="4" ><input type="text" style="width:100%"  value="投票"></td>
+		</tr>
+		<tr>
+			<td scope="col" colspan="2" style="text-align: center">评审方式</td>
+			<td scope="col" colspan="4" style="text-align: center;">
+				<a href="#" class="btn btn-primary passBtn" style="background-color: rgb(26, 188, 156);color: #ffffff;">一键通过</a>
+			</td>
+		</tr>
+		<tr>
+			<td scope="col" colspan="2" ><input type="text" style="width:100%" value="评审结果"></td>
+			<td scope="col" colspan="4" class="result2" style="text-align: center"></td>
+		</tr>
+    </script>
+
+	</tbody>
+</table>
+<div class="hidden aa">{{user}}</div>
+<div class="hidden bb">{{template}}</div>
+<div class="hidden length">{{length}}</div>
+<div class="hidden mode">{{mode}}</div>
+<input type="text" class="select hidden" value="-1">
+<script type="text/javascript" src="/lib/template-native.js"></script>
+<script src="/common/js/pages.js"></script>
+<script src="/common/js/moment.min.js"></script>
+<script>
+    $(function(){
+        var time = moment(new Date()).format("YYYY-MM-DD")
+        $(".time").html(time)
+
+        var mode = $(".mode").text()
+		console.log("mode",mode)
+        var aa = $(".aa").text()
+        console.log("user",aa)
+        var bb = $(".bb").text()
+        console.log("bb",bb)
+        var data = JSON.parse(aa)
+        var tem = JSON.parse(bb)
+        var le = $('.length').text()
+        var length = JSON.parse(le)
+        console.log("data>>>>",data)
+        console.log("tem>>>>",tem)
+        $(".r strong").html(length)
+		if(mode == "mode1"){
+            $("#render").show()
+            $("#render2").show()
+            $("#render3").hide()
+			$(".save").show()
+            $("#render").html(template("tpl",{data:data}))
+            $("#render2").html(template("tpl2",{tem:tem}))
+
+            //失去焦点自动得出结果 验证
+            var valis=$("#score_vali").children();
+            var comps=$(".score_valied tr");
+            $("input").blur(function(){
+                for (var j=0;j<comps.length;j++){
+                    var valised=$(comps[j]).find("input");
+                    console.log(valised);
+                    var count=0;
+                    for (var i=0;i<valised.length-1;i++){
+                        if(valised[i].value !=''){
+                            count=count+parseInt(valised[i].value);
+                        }
+                    }
+                    valised[valised.length-1].value=count;
+                }
+            })
+            $(".save").on("click",function(){
+                var en = 1
+                for (var j=0;j<comps.length;j++){
+                    var valised=$(comps[j]).find("input");
+                    console.log(valised);
+                    var count=0;
+                    for (var i=0;i<valised.length-1;i++){
+                        if(parseInt(valised[i].value)>parseInt(valis[i+1].innerText)){
+                            valised[i].parentNode.style="border:1px solid red";
+                            en = 0
+                        }
+                        if (valised[i].value ==''){
+                            valised[i].parentNode.style="border:1px solid red";
+                            en = 0
+                        }else if(valised[i].value !=''){
+                            count=count+parseInt(valised[i].value);
+                        }
+                    }
+                    valised[valised.length-1].value=count;
+                }
+                if(en == 1){
+                    var score = []
+                    var name = $(".name").text()
+                    for(var i in data){
+                        var result = parseInt($(".result"+i).val())
+                        score.push({enterprise:data[i].enterprise,score:result})
+                    }
+                    $.ajax({
+                        url:"/project/score.html",
+                        type:"post",
+                        data:{score:JSON.stringify(score),name:name},
+                        success:function (res) {
+                            layer.msg('提交成功!', {icon: 6,time:1000});
+                        },
+                        error:function(err){
+                            console.log(err)
+                        }
+                    })
+                    console.log("result",score)
+                }
+                console.log("en",en)
+            })
+            var pageLength = length;
+            var l = Math.ceil(pageLength/10);
+            console.log(l);
+            page(l,"/compan/pages.html");
+		}else if(mode == "mode2"){
+            $("#render").hide()
+            $("#render2").hide()
+            $("#render3").show()
+            $(".save").hide()
+            $("#render3").html(template("tpl3",{onlyUser:data}))
+		}
+		$(".passBtn").on("click",function(){
+            var name = $(".name").text()
+            $.ajax({
+                url:"/project/score.html",
+                type:"post",
+                data:{score:JSON.stringify([{enterprise:data[0].enterprise,score:100}]),name:name},
+                success:function (res) {
+                    layer.msg('审核完成!', {time:1000});
+                    $(".result2").html("通过")
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+		})
+    })
+    function valiTabdata() {
+        var valis=$("#score_vali").children();
+        var comps=$(".score_valied tr");
+        for (var j=0;j<comps.length;j++){
+            var valised=$(comps[j]).find("input");
+            console.log(valised);
+            var count=0;
+            for (var i=0;i<valised.length-1;i++){
+                if(parseInt(valised[i].value)>parseInt(valis[i+1].innerText)){
+                    valised[i].value="";
+                }
+                if (valised[i].value!=''){
+                    count=count+parseInt(valised[i].value);
+                }
+            }
+            valised[valised.length-1].value=count;
+        }
+    }
+</script>
+</body>
+

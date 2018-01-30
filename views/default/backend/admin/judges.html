@@ -1,0 +1,255 @@
+<head>
+    <title>评委列表</title>
+</head>
+<body>
+    <!--=== 当前位置 开始 ===-->
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i>
+        首页
+        <span class="c-gray en">&gt;</span>
+        评委列表
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+    </nav>
+    <!--=== 当前位置 结束 ===-->
+
+    <div class="page-container" style="margin-top: -20px;">
+        <!--=== 操作按钮与总条数 开始 ===-->
+        <div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-bottom: -19px;">
+                <span class="l">
+                    <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                        <i class="Hui-iconfont">&#xe6e2;</i>
+                        批量删除
+                    </a>
+                    <a href="javascript:;" onclick="ImportJudges()" class="btn btn-secondary radius">
+                        <i class="Hui-iconfont">&#xe645;</i>
+                        导入评委名单
+                    </a>
+                    <a href="javascript:;" onclick="ExportJudges()" class="btn btn-secondary radius">
+                        <i class="Hui-iconfont">&#xe644;</i>
+                        导出评委名单
+                    </a>
+                    <a href="javascript:;" onclick="member_add('添加评委','judge-edit.html','','510')" class="btn btn-secondary radius">
+                        <i class="Hui-iconfont">&#xe607;</i>
+                        新增评委信息
+                    </a>
+                </span>
+            <span class="r">共有数据：<strong>{{pagecount}}</strong> 条</span>
+        </div>
+        <!--=== 操作按钮与总条数 结束 ===-->
+
+        <!--=== 列表 开始 ===-->
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="9">评委列表</th>
+                    </tr>
+                    <tr class="text-c">
+                        <th width="25">
+                            <input type="checkbox" name="" value="">
+                        </th>
+                        <th width="150">姓名</th>
+                        <th width="150">证书编号</th>
+                        <th width="150">联系电话</th>
+                        <th width="90">关联专业</th>
+                        <th width="100">公司部门</th>
+                        <th width="100">状态</th>
+                        <th width="100">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{each judges as judge i}}
+                    <tr class="text-c">
+                        <td>
+                            <input type="checkbox" value="{{judge.id}}" name="check">
+                        </td>
+                        <td>{{judge.name}}</td>
+                        <td>{{judge.number}}</td>
+                        <td>{{judge.tel}}</td>
+                        <td>{{judge.relevance}}</td>
+                        <td>{{judge.department}}</td>
+                        {{if judge.judge_status == 2}}
+                        <td class="td-status">
+                            <span class="label label-danger radius">正在审核</span>
+                        </td>
+                        {{/if}}
+                        {{if judge.judge_status == 1}}
+                        <td class="td-status">
+                            <span class="label label-danger radius">忙碌</span>
+                        </td>
+                        {{/if}}
+                        {{if judge.judge_status == 3}}
+                        <td class="td-status">
+                            <span class="label label-success radius">空闲</span>
+                        </td>
+                        {{/if}}
+                        <td class="td-manage">
+                            <a title="编辑" href="javascript:;" onclick="admin_edit('评委编辑','judge-edit.html?edit={{judge.id}}','1','800','500')" class="ml-5" style="text-decoration:none">
+                                <i class="Hui-iconfont">&#xe6df;</i>
+                            </a>
+                            <a title="删除" href="javascript:;" onclick="admin_del(this,'{{judge.id}}')" class="ml-5" style="text-decoration:none">
+                                <i class="Hui-iconfont">&#xe6e2;</i>
+                            </a>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            <ul class="pagination" id="pagination">
+            </ul>
+        </div>
+        <!--=== 列表 结束 ===-->
+    </div>
+
+    <!--请在下方写此页面业务相关的脚本-->
+    <!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+    <!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+    <!--<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="/common/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/common/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            var currentpage='{{current}}'
+            var pagesize='{{pagesize}}'
+            var pagecount='{{pagecount}}'
+            Pagination(currentpage,pagesize,pagecount)
+            sessionStorage.pagecount=currentpage
+        })
+
+        /*
+        * 分页控件
+        * */
+        function Pagination(currentpage,pagesize,pagecount) {
+            if($("#pagination")){
+                var counts,pagehtml="";
+                if(pagecount%pagesize==0){
+                    counts = parseInt(pagecount/pagesize);
+                }else{
+                    counts = parseInt(pagecount/pagesize)+1;
+                }
+                //只有一页内容
+                if(pagecount<=pagesize){pagehtml="";}
+                //大于一页内容
+                if(pagecount>pagesize){
+                    if(currentpage>1){
+                        pagehtml+= '<li><a href="/admin/judge.html?current='+(currentpage-1)+'">上一页</a></li>';
+                    }
+                    for(var i=0;i<counts;i++){
+                        if(i>=(currentpage-3) && i<(currentpage+3)){
+                            if(i==currentpage-1){
+                                pagehtml+= '<li class="active"><a href="/admin/judge.html?current='+(i+1)+'">'+(i+1)+'</a></li>';
+                            }else{
+                                pagehtml+= '<li><a href="/admin/judge.html?current='+(i+1)+'">'+(i+1)+'</a></li>';
+                            }
+
+                        }
+                    }
+                    if(currentpage<counts){
+                        pagehtml+= '<li><a href="/admin/judge.html?current='+(parseInt(currentpage)+1)+'">下一页</a></li>';
+                    }
+                }
+                $("#pagination").html(pagehtml);
+            }
+        }
+
+        /*
+         参数解释：
+         title	标题
+         url		请求的url
+         id		需要操作的数据id
+         w		弹出层宽度（缺省调默认值）
+         h		弹出层高度（缺省调默认值）
+         */
+
+        /*评委-随机*/
+        function randomJudge(){
+            $.ajax({
+                url:"/judge/random.html",
+                type:"post",
+                data:{},
+                dataType:"json",
+                success:function(res){
+
+                },
+                error:function(err){
+                    console.log(err)
+                }
+            })
+        }
+        /*评委-添加*/
+        function member_add(title,url,w,h){
+            layer_show(title,url,w,h);
+        }
+        /*评委-删除*/
+        function admin_del(obj,id){
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/judge-delete.html',
+                    dataType: 'json',
+                    data:{
+                        ids:id
+                    },
+                    success: function(data){
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        location.replace("/admin/judge.html?current="+sessionStorage.pagecount)
+                    },
+                    error:function(data) {
+                        console.log(data.msg);
+                    },
+                });
+            });
+        }
+
+        /*评委-编辑*/
+        function admin_edit(title,url,id,w,h){
+            layer_show(title,url,w,h);
+        }
+
+        /*评委-批量删除*/
+        function datadel() {
+            var obj = document.getElementsByName("check");
+            var check_val = [];
+            for(var k in obj){
+                if(obj[k].checked)
+                    check_val.push(obj[k].value);
+            }
+            layer.confirm('确认要批量删除吗？',function(index){
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/judge-delete.html',
+                    dataType: 'json',
+                    data:{
+                        ids:check_val.toString()
+                    },
+                    success: function(data){
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        location.replace("/admin/judge.html")
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    },
+                });
+            });
+        }
+
+        /*
+        * 导入评委Excel数据
+        * */
+        function ImportJudges() {
+            layer_show("导入评委数据","judge-importv.html",500,200);
+        }
+
+        /*
+        * 导出评委Excel数据
+        * */
+        function ExportJudges() {
+            var url =  "/admin/judge-export.html";
+            window.location = url;
+        }
+
+    </script>
+</body>

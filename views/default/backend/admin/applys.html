@@ -1,0 +1,359 @@
+﻿<head>
+	<title>报名列表</title>
+	<link rel="stylesheet" href="/common/css/pages.css">
+</head>
+<body>
+	<!--=== 当前位置 开始 ===-->
+	<nav class="breadcrumb"  style="margin-top: -22px;">
+		<i class="Hui-iconfont">&#xe67f;</i>
+		首页
+		<span class="c-gray en">&gt;</span>
+		项目管理
+		<span class="c-gray en">&gt;</span>
+		项目报名
+		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+			<i class="Hui-iconfont">&#xe68f;</i>
+		</a>
+	</nav>
+	<!--=== 当前位置 结束 ===-->
+
+	<!--=== 操作按钮与总条数 开始 ===-->
+	<div class="page-container" style="margin-top: -20px;">
+		<!--<div class="text-c">
+			<input type="text" class="input-text" style="width:250px" placeholder="输入项目名称" name="">
+			<button type="submit" class="btn btn-success radius" name="">
+				<i class="Hui-iconfont">&#xe665;</i>
+				搜项目
+			</button>
+		</div>-->
+		<div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-bottom: -19px;">
+			<span class="l" style="display: inline-flex;">
+				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+					<i class="Hui-iconfont">&#xe6e2;</i>
+					批量删除
+				</a>
+			<!--	<span class="select-box radius" style="margin-left: 8px;">
+					<select class="select" size="1" name="demo2">
+						<option value="" selected="">全部状态</option>
+						<option value="1">已通过</option>
+						<option value="2">待审核</option>
+						<option value="3">未通过</option>
+					</select>
+				</span>-->
+			</span>
+			<span class="r">
+				共有数据：
+				<strong></strong> 条
+			</span>
+		</div>
+		<!--=== 操作按钮与总条数 结束 ===-->
+
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-hover table-bg table-sort">
+				<thead>
+				<tr class="text-c">
+					<th width="25">
+						<input type="checkbox" name="" value="">
+					</th>
+					<th>项目名称</th>
+					<th>公司列表</th>
+					<th>报名截止时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+				</thead>
+				<tbody id="render">
+				<script type="text/html" id="tpl">
+					<%for(i=0;i < data.length;i++){%>
+				<tr class="text-c">
+					<td>
+						<input type="checkbox" name="check" value="<%=data[i]._id%>">
+					</td>
+					<td><%=data[i].name%></td>
+					<td>
+						<a data-href="/bcompans.html?project=<%=data[i].name%>" data-title="报名名单" onclick="Hui_admin_tab(this)" href="javascript:;">查看项目报名名单</a>
+					</td>
+					<td><%=data[i].enable_time%></td>
+					<%if(data[i].status == 1){%>
+					<td class="td-status">
+						<span class="label label-success radius">报名中</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 0){%>
+					<td class="td-status">
+						<span class="label label-warning radius">待审核</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 2){%>
+					<td class="td-status">
+						<span class="label label-success radius">审核中</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 3){%>
+					<td class="td-status">
+						<span class="label label-warning radius">结果待确认</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 4){%>
+					<td class="td-status">
+						<span class="label label-success radius">用户缴纳</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 5){%>
+					<td class="td-status">
+						<span class="label label-primary radius">凭证审核</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 6){%>
+					<td class="td-status">
+						<span class="label label-primary radius">上传超时</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 8){%>
+					<td class="td-status">
+						<span class="label label-danger radius">项目取消</span>
+					</td>
+					<%}%>
+					<%if(data[i].status == 7){%>
+					<td class="td-status">
+						<span class="label label-primary radius">项目结束</span>
+					</td>
+					<%}%>
+					<td class="td-manage">
+						<a style="text-decoration:none" class="ml-5" onclick="ExportCompan('<%=data[i].name%>')" href="javascript:;" title="导出">
+							<i class="Hui-iconfont">&#xe644;</i>
+						</a>
+						<a style="text-decoration:none" class="ml-5" onClick="project_del(this,'<%=data[i]._id%>')" href="javascript:;" title="删除">
+							<i class="Hui-iconfont">&#xe6e2;</i>
+						</a>
+					</td>
+				</tr>
+					<%}%>
+				</script>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<ul class="pages col-md-4">
+			<li class="firstPage">首页</li>
+			<li class="prePage">上一页</li>
+			<li class="nextPage">下一页</li>
+			<li class="lastPage">末页</li>
+			<div class="only">共一页</div>
+		</ul>
+
+	</div>
+	<div class="hidden aa">{{projects}}</div>
+	<div class="hidden length">{{length}}</div>
+	<input type="text" class="select hidden" value="-1">
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+	<!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+	<!--<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>-->
+	<!--<script type="text/javascript" src="lib/lightbox2/2.8.1/js/lightbox.min.js"></script>-->
+	<script type="text/javascript" src="/lib/template-native.js"></script>
+	<script src="/common/js/pages.js"></script>
+	<script type="text/javascript">
+        $(function(){
+            console.log($(".select").val())
+            var aa = $(".aa").text()
+            var data = JSON.parse(aa)
+            var le = $('.length').text()
+            var length = JSON.parse(le)
+            console.log("data>>>>",data)
+            $(".r strong").html(length)
+            $("#render").html(template("tpl",{data:data}))
+            var pageLength = length;
+            var l = Math.ceil(pageLength/10);
+            console.log(l);
+            page(l,"/apply/pages.html");
+            $(".search").on("click",function(){
+                var project = $(".compan").val()
+                console.log("project",project)
+                $.ajax({
+                    url:"/project/search.html",
+                    type:"post",
+                    data:{project:project},
+                    success:function(res){
+                        console.log(res)
+                        $("#render").html(template("tpl",{data:res}))
+                        var pageLength = res.length;
+                        var l = Math.ceil(pageLength/10);
+                        console.log(l);
+                        page(l,"/project/pages.html");
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            })
+        })
+		/*
+		 * 导出报名名单Excel数据
+		 * */
+        function ExportCompan(name) {
+            var url =  "/admin/compan-export.html?project="+name;
+            console.log("url",url)
+            window.location = url;
+        }
+
+		/*-删除*/
+        function project_del(obj,id){
+            console.log("id",id)
+            var ids = []
+            ids.push(id)
+            layer.confirm('确认要删除吗？',function(index){
+                $.ajax({
+                    type: 'POST',
+                    url: '/project/delete.html',
+                    dataType: 'json',
+                    data:{ids:ids.toString()},
+                    success: function(data){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    },
+                    error:function(data) {
+                        console.log(data.msg);
+                    },
+                });
+            });
+        }
+        function datadel() {
+            var obj = document.getElementsByName("check");
+            var check_val = [];
+            for(var k in obj){
+                if(obj[k].checked)
+                    check_val.push(obj[k].value);
+            }
+            layer.confirm('确认要批量删除吗？',function(index){
+                $.ajax({
+                    type: 'POST',
+                    url: '/project/delete.html',
+                    dataType: 'json',
+                    data:{
+                        ids:check_val.toString()
+                    },
+                    success: function(data){
+                        layer.msg('已删除!',{icon:1,time:1000});
+                        location.replace("/admin/apply.html")
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    },
+                });
+            });
+        }
+
+        function project_add(title,url,w,h){
+            layer_show(title,url,w,h);
+        }
+        function project_edit(title,url,id,w,h){
+            layer_show(title,url,w,h);
+        }
+        function judge_choose(title,url,id,w,h) {
+            layer_show(title,url,w,h);
+        }
+
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			$(".portfolio-area li").Huihover();
+		});
+//	$(function(){
+//		$('.table-sort').dataTable({
+//			"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+//			"bStateSave": true,//状态保存
+//			"aoColumnDefs": [
+//			  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+//			  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+//			]
+//		});
+//
+//	});
+
+	/*用户-添加*/
+	function member_add(title,url,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-查看*/
+	function member_show(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-停用*/
+	function member_stop(obj,id){
+		layer.confirm('确认要停用吗？',function(index){
+			$.ajax({
+				type: 'POST',
+				url: '',
+				dataType: 'json',
+				success: function(data){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+					$(obj).remove();
+					layer.msg('已停用!',{icon: 5,time:1000});
+				},
+				error:function(data) {
+					console.log(data.msg);
+				},
+			});
+		});
+	}
+
+	/*用户-启用*/
+	function member_start(obj,id){
+		layer.confirm('确认要启用吗？',function(index){
+			$.ajax({
+				type: 'POST',
+				url: '',
+				dataType: 'json',
+				success: function(data){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+					$(obj).remove();
+					layer.msg('已启用!',{icon: 6,time:1000});
+				},
+				error:function(data) {
+					console.log(data.msg);
+				},
+			});
+		});
+	}
+	/*用户-编辑*/
+	function member_edit(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*密码-修改*/
+	function change_password(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-删除*/
+	function member_del(obj,id){
+		layer.confirm('确认要删除吗？',function(index){
+			$.ajax({
+				type: 'POST',
+				url: '',
+				dataType: 'json',
+				success: function(data){
+					$(obj).parents("tr").remove();
+					layer.msg('已删除!',{icon:1,time:1000});
+				},
+				error:function(data) {
+					console.log(data.msg);
+				},
+			});
+		});
+	}
+
+	/*用户-对话框*/
+	function modaldemo(){
+		$("#modal-demo").modal("show")
+	}
+
+	/*消息框*/
+	function modalalertdemo(){
+		$.Huimodalalert('正在开发中,请耐心等待更新！',2000)
+	}
+	</script>
+</body>

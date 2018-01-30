@@ -1,0 +1,176 @@
+<head>
+	<title>添加管理员</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<input type="hidden" id="id" name="id" value="0"/>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">
+			<span class="c-red">*</span>
+			登录名：
+		</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">
+			<span class="c-red">*</span>
+			初始密码：
+		</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">
+			<span class="c-red">*</span>
+			确认密码：
+		</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">
+			<span class="c-red">*</span>
+			姓名：
+		</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">
+			<span class="c-red">*</span>
+			手机：
+		</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="tel" name="tel">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">
+			<span class="c-red">*</span>
+			邮箱：
+		</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" placeholder="@" name="email" id="email">
+		</div>
+	</div>
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+		</div>
+	</div>
+	</form>
+</article>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/common/js/common/util.js"></script>
+<script type="text/javascript">
+$(function(){
+
+    var edit_id=getUrlParams(window.location.search,"edit")
+	if (edit_id!=null){
+        $.ajax({
+            type: 'POST',
+            url: '/admin/admin-edit.html',
+            dataType: 'json',
+            data:{
+                id:edit_id
+            },
+            success: function(data){
+                $("#username").val(data.username);
+                $("#password").val(data.password);
+                $("#password2").val(data.password);
+                $("#name").val(data.name);
+                $("#email").val(data.email);
+                $("#tel").val(data.tel);
+                $("#id").val(data._id);
+            },
+            error:function(data) {
+                console.log(data);
+            },
+        });
+	}
+
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-admin-add").validate({
+		rules:{
+			username:{
+                remote:"/admin/user_validate"
+			},
+			password:{
+				required:true,
+			},
+			password2:{
+				required:true,
+				equalTo: "#password"
+			},
+			tel:{
+				required:true,
+				isPhone:true,
+			},
+			email:{
+				required:true,
+				email:true,
+			},
+			name:{
+				required:true,
+			}
+		},
+        messages: {
+            username: {
+                remote: "用户名已存在"
+            }
+        },
+        onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+            var username=$("#username").val();
+            var password=$("#password").val();
+            var name=$("#name").val();
+            var email=$("#email").val();
+            var tel=$("#tel").val();
+            var id=$("#id").val();
+            $.ajax({
+                type: 'POST',
+                url: '/admin/admin-add.html',
+                dataType: 'json',
+                data:{
+                    id:id,
+                    username:username,
+					password:password,
+					name:name,
+					email:email,
+					tel:tel
+                },
+                success: function(data){
+                    layer.msg('操作成功!', {icon: 6,time:1000});
+                    parent.location.replace("/admin/admins.html?current="+sessionStorage.pagecount)
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+
+                },
+                error:function(data) {
+                    layer.msg('操作失败!', {icon: 6,time:1000});
+                }
+            });
+		}
+	});
+
+});
+</script> 
+<!--/请在上方写此页面业务相关的脚本-->
+</body>

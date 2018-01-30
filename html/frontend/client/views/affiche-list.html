@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>公告列表</title>
+
+    <!--=== 系统图标 ICO ===-->
+    <link rel="Shortcut Icon" href="#">
+
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="../css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="../css/fstyle.css">
+</head>
+<body>
+
+    <!--=== 导航栏 开始 ===-->
+    <header class="ui-header ui-header-positive ui-border-b">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+        <h1>公告列表</h1><div class="ui-btn-wrap">
+    </div>
+    </header>
+    <!--=== 导航栏 结束 ===-->
+
+    <!--=== loading 开始 ===-->
+    <!--<div class="ui-loading-block show">-->
+        <!--<div class="ui-loading-cnt">-->
+            <!--<i class="ui-loading-bright"></i>-->
+            <!--<p>正在加载中...</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--=== loading 结束 ===-->
+
+    <!--=== 内容详情 开始 ===-->
+    <section>
+        <section id="list">
+            <div class="demo-item projects">
+                <p class="demo-desc">公告列表</p>
+                <div class="demo-block">
+                    <ul class="ui-list ui-list-text ui-list-active ui-list-cover ui-border-tb">
+                        <li class="ui-border-t" style="border-top: 1px solid #e0e0e0;">
+                            <div class="ui-list-info">
+                                <div class="title">
+                                    成都旧站拆迁公告成都旧站拆迁公告成都旧站拆迁公告成都旧站拆迁
+                                </div>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="min-title">所属项目 : <a>成都旧站拆迁项目</a></div></li>
+                                        <li style="text-align: right;-webkit-box-pack: stretch;-webkit-box-align: stretch;width: 130px;"><a href="#">查看附件</a></li>
+                                    </ul>
+                                </div>
+                                <p style="text-align: right;">2017-08-20 09:10:23</p>
+                            </div>
+                        </li>
+                        <li class="ui-border-t" style="border-top: 1px solid #e0e0e0;">
+                            <div class="ui-list-info">
+                                <div class="title">
+                                    成都旧站拆迁公告成都旧站拆迁公告成都旧站拆迁公告成都旧站拆迁
+                                </div>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li><div class="min-title">所属项目 : <a>成都旧站拆迁项目</a></div></li>
+                                        <li style="text-align: right;-webkit-box-pack: stretch;-webkit-box-align: stretch;width: 130px;"><a href="#">查看附件</a></li>
+                                    </ul>
+                                </div>
+                                <p style="text-align: right;">2017-08-20 09:10:23</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--=== 内容详情 结束 ===-->
+
+    <!--=== JQUERY(第三方) JS ===-->
+    <!--<script src="../js/common/jquery.min.js"></script>-->
+    <!--=== ZEPTO(第三方) JS ===-->
+    <script src="../js/common/zepto.min.js"></script>
+    <!--=== FROZEN(第三方) JS ===-->
+    <script src="../js/common/frozen.js"></script>
+
+    <script type="text/javascript">
+        $('.ui-searchbar').tap(function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+        $('.ui-searchbar-cancel').tap(function(){
+            $('.ui-searchbar-wrap').removeClass('focus');
+        });
+    </script>
+</body>
+</html>

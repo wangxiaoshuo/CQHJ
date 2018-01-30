@@ -1,0 +1,118 @@
+<head>
+    <title>用户评审结果</title>
+    <link rel="stylesheet" href="/common/css/pages.css">
+</head>
+<body>
+<!--=== 当前位置 开始 ===-->
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页
+    <span class="c-gray en">&gt;</span>
+    用户评审结果
+    <span class="c-gray en">&gt;</span>
+    {{name}}评审结果
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<!--=== 当前位置 结束 ===-->
+
+<!--=== 操作按钮与总条数 开始 ===-->
+<div class="page-container">
+
+    <!--=== 列表 开始 ===-->
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead id="render">
+            <script type="text/html" id="tpl">
+            <tr class="text-c">
+                <th>公司全称</th>
+                <%for(j=0;j < data.length; j++){%>
+                <th><%=data[j].name%></th>
+                <%}%>
+
+                {{if mode == "mode1"}}
+                <th>平均得分</th>
+                {{/if}}
+                {{if mode == "mode2"}}
+                <th>评审结果</th>
+                {{/if}}
+            </tr>
+            </script>
+            </thead>
+
+            <tbody id="render2">
+            <script type="text/html" id="tpl2">
+            <%for(i=0;i < {{length}};i++){%>
+            <tr class="text-c">
+                <td><%=data[i].enterprise%></td>
+                <%for(k=0;k < data[i].score.length;k++){%>
+                {{if mode == "mode1"}}
+                <td><%=data[i].score[k]%></td>
+                {{/if}}
+                {{if mode == "mode2"}}
+                <td>通过</td>
+                {{/if}}
+                <%}%>
+                {{if mode == "mode1"}}
+                <td><%=data[i].avScore%></td>
+                {{/if}}
+                {{if mode == "mode2"}}
+                <td>竞标成功</td>
+                {{/if}}
+            </tr>
+            <%}%>
+            </script>
+            </tbody>
+
+        </table>
+        <!--=== 列表 结束 ===-->
+    </div>
+</div>
+
+<div class="hidden aa">{{judge}}</div>
+<div class="hidden bb">{{result}}</div>
+<div class="hidden length">{{length}}</div>
+<!--请在下方写此页面业务相关的脚本-->
+<!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+<!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+<!--<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>-->
+<!--<script type="text/javascript" src="lib/lightbox2/2.8.1/js/lightbox.min.js"></script>-->
+<script type="text/javascript" src="/lib/template-native.js"></script>
+<script src="/common/js/pages.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var aa = $(".aa").text()
+        console.log("aa",aa)
+        var bb = $(".bb").text()
+        console.log("bb",bb)
+        var judge = JSON.parse(aa)
+        var result = JSON.parse(bb)
+        result.sort(compare('avScore'))
+        console.log("data>>>>",judge)
+        console.log("data>>>>",result)
+        $("#render").html(template("tpl",{data:judge}))
+        $("#render2").html(template("tpl2",{data:result}))
+        $(".portfolio-area li").Huihover();
+    });
+    //	$(function(){
+    //		$('.table-sort').dataTable({
+    //			"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+    //			"bStateSave": true,//状态保存
+    //			"aoColumnDefs": [
+    //			  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //			  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+    //			]
+    //		});
+    //
+    //	});
+
+    function compare(property){
+        return function(a,b){
+            var value1 = a[property];
+            var value2 = b[property];
+            return value2 - value1;
+        }
+    }
+</script>
+</body>

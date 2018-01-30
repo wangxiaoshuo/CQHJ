@@ -1,0 +1,232 @@
+<head>
+    <title>可报名项目列表</title>
+    <!--项目列表(用户)-->
+    <style>
+        .pro-list .title {
+            font-weight: 600;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .table-border .pro-title {
+            font-size: 16px;
+            color: #232222;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .table-border .pro-title span {
+            position: absolute;
+            margin-left: 10px;
+            margin-top: 3px;
+        }
+
+        .table-border .pro-title p {
+            font-size: 14px;
+            font-weight: 500;
+            padding-top: 22px;
+            line-height: 2;
+            margin-bottom: 0;
+            margin-top: 27px
+        }
+
+        .table-border .pro-title .min-title {
+            font-size: 14px;
+            font-weight: 600;
+            display: inline;
+            color: #383833;
+            position: absolute;
+            right: 22px;
+            top: 57px;
+        }
+
+        .table-border .pro-title .min-title a {
+            color: unset;
+            text-decoration:none;
+            font-weight: 500;
+        }
+
+        .table-border .pro-time {
+            font-size: 14px;
+            font-weight: 600;
+            color: #383833;
+        }
+
+        .table-border .pro-time span {
+            color: chocolate;
+            padding-left: 11px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .table-border .pro-time span.amount {
+            color: #000;
+        }
+
+        .table-border .no-border td {
+            border-bottom: none;
+        }
+    </style>
+    <link rel="stylesheet" href="/common/css/pages.css">
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="/common/css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="/common/css/fstyle.css">
+</head>
+<body>
+<!--=== 当前位置 开始 ===-->
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页
+    <span class="c-gray en">&gt;</span>
+    可报名项目
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<!--=== 当前位置 结束 ===-->
+
+<div class="page-container" style="margin-top: -20px;">
+    <!--=== 列表 开始 ===-->
+    <div class="mt-20">
+        <table class="table table-border">
+            <tbody>
+                <tr class="text-c">
+                    <div style="margin-top: 3px;">
+                        <table class="table table-border pro-list" style="background: darkseagreen;">
+                            <thead>
+                                <tr class="text-c">
+                                    <th scope="col" colspan="12" class="title">项目列表</th>
+                                </tr>
+                            </thead>
+                            <tbody id="render">
+                            <script type="text/html" id="tpl">
+                                <%for(i=0;i < data.length;i++){%>
+                                <tr class="text-c no-border" onclick="noticeListShow('<%=data[i].name%>')" style="position: relative">
+                                    <td colspan="12" class="text-l pro-title">
+                                        <%=data[i].name%>
+                                        <%if(data[i].status == 1){%>
+                                        <span class="label label-success radius">报名中</span>
+                                        <button class="ui-btn ui-btn-progress bm " onclick="upload_material('提交报名材料','/upload/material.html?project=<%=data[i].name%>','<%=data[i].name%>','','410')"  style="margin-left:7%;background: seagreen;color:#fff" onmouseover="this.style.cursor='pointer'">报名</button>
+                                    <%}%>
+                                    <%if(data[i].status == 0){%>
+                                        <span class="label label-warning radius">待审核</span>
+                                    <%}%>
+                                    <%if(data[i].status == 2){%>
+                                        <span class="label label-success radius">审核中</span>
+                                    <%}%>
+                                    <%if(data[i].status == 3){%>
+                                        <span class="label label-warning radius">结果待确认</span>
+                                    <%}%>
+                                    <%if(data[i].status == 4){%>
+                                        <span class="label label-success  radius">上传缴纳凭证</span>
+                                    <%}%>
+                                        <%if(data[i].status == 5){%>
+                                        <span class="label label-warning  radius">凭证待确认</span>
+                                        <%}%>
+                                        <%if(data[i].status == 6){%>
+                                        <span class="label label-warning  radius">上传超时</span>
+                                        <%}%>
+                                        <%if(data[i].status == 7){%>
+                                        <span class="label label-success radius">项目结束</span>
+                                        <%}%>
+                                        <%if(data[i].status == 8){%>
+                                        <span class="label label-danger radius">项目取消</span>
+                                        <%}%>
+                                        <div class="min-title">预估规模 : <a href="javascript:;"><%=data[i].estimated%></a></div>
+                                        <p style="color: dimgrey"><%=data[i].content%></p>
+                                    </td>
+                                </tr>
+                                <tr class="text-c no-border" onclick="noticeListShow('<%=data[i].name%>')">
+                                    <td colspan="6" class="text-l pro-time" style="width:50%">
+                                        计划工期:<span><%=data[i].project_duration%></span>
+                                    </td>
+                                    <td colspan="6" class="text-l pro-time" style="width:50%">
+                                        服务期限:<span><%=data[i].server_duration%></span>
+                                    </td>
+                                </tr>
+                                <tr class="text-c" onclick="noticeListShow('<%=data[i].name%>')">
+                                    <td colspan="4" class="text-l pro-time" style="width:33.3%">
+                                        选定应答人数量:<span class="amount"><%=data[i].select_num%></span>
+                                    </td>
+                                    <td colspan="4" class="text-l pro-time" style="width:33.3%">
+                                        履约保证金（元）:<span class="amount"><%=data[i].security_deposit%></span>
+                                    </td>
+                                    <td colspan="4" class="text-l pro-time" style="width:33.3%">
+                                        选定代理服务费（元）:<span class="amount"><%=data[i].commission%></span>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </script>
+                            </tbody>
+                        </table>
+                    </div>
+                </tr>
+            </tbody>
+            <p style="padding: 10px 20px 0px 10px;color: tomato;font-size: 14px">* 根据代理机构与中国铁塔股份有限公司四川省分公司签订的招标代理委托合同中代理服务基准价下浮30%计算选定代理服务费</p>
+            <div class="col-md-12">
+                <ul class="pages col-md-4">
+                    <li class="firstPage">首页</li>
+                    <li class="prePage">上一页</li>
+                    <li class="nextPage">下一页</li>
+                    <li class="lastPage">末页</li>
+                    <div class="only">共一页</div>
+                </ul>
+            </div>
+        </table>
+    </div>
+    <div class="hidden aa">{{projects}}</div>
+    <div class="hidden length">{{length}}</div>
+    <div class="hidden user_status">{{user_status}}</div>
+    <input type="text" class="select hidden" value="-1">
+    <!--=== 列表 结束 ===-->
+</div>
+<script type="text/javascript" src="/lib/template-native.js"></script>
+<script src="/common/js/pages.js"></script>
+<script>
+    $(function(){
+        var aa = $(".aa").text()
+        var data = JSON.parse(aa)
+        var le = $('.length').text()
+        var length = JSON.parse(le)
+        $(".r strong").html(length)
+        $("#render").html(template("tpl",{data:data}))
+        var pageLength = length;
+        var l = Math.ceil(pageLength/10);
+        page(l,"/user/bm_project.html");
+        $("tr").on("mouseover",function(){
+            $(this).css({"cursor":"pointer"})
+        })
+    })
+    function upload_material(title,url,p,w,h){
+        var status = $(".user_status").text()
+        if(status == 1){
+            $.ajax({
+                url:"/user/bm.html",
+                type:"post",
+                data:{name:p},
+                success:function(res){
+                    if(res.verify == true){
+                        layer.msg('您已报名，无需重复提交!',{icon:6,time:1000});
+
+                    }else{
+                        layer_show(title,url,w,h);
+                    }
+                },
+                error:function (err) {
+                    console.log(err)
+                }
+            })
+        }else if(status == 0){
+            layer.msg('营业执照审核未通过，无法报名!',{icon:5,time:1000});
+        }else if(status == 2){
+            layer.msg('营业执照正在审核中，无法报名!',{icon:5,time:1000});
+        }
+        event.stopPropagation();
+    }
+    function noticeListShow(name){
+        location.href = "/project/notice.html?name="+name
+    }
+</script>
+</body>

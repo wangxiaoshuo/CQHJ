@@ -1,0 +1,311 @@
+<head>
+    <title>发布项目</title>
+    <style>
+        .wu-example {
+            width:60%;
+            float: left;
+            position: relative;
+            margin-left: 15px;
+            background-color: #fafafa;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, .05);
+            border-color: #e5e5e5 #eee #eee;
+            border-style: solid;
+            border-width: 1px 0;
+        }
+    </style>
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-member-add">
+        <input type="hidden" id="id" name="id" value="0"/>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+               项目名称：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                预估规模:
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="estimated" name="estimated">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                拆迁还建内容：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" name="content" id="content">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                质量标准要求：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" name="quality_level" id="quality_level">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                技术标准要求：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" name="technical_standard" id="technical_standard">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                计划工期(含拆迁、还建工期)：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" name="project_duration" id="project_duration">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                服务期限：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" name="server_duration" id="server_duration">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                选定应答人数量：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" name="select_num" id="select_num">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                履约保证金（元）：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" name="security_deposit" id="security_deposit">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                选定代理服务费（元）：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" name="commission" id="commission">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                报名截止时间：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="格式：2017/07/27/15/33/00" name="enable_time" id="enable_time">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="float: left;">
+                上传附件：
+            </label>
+            <div id="uploader" class="wu-example">
+                <div class="queueList">
+                    <div id="dndArea" class="placeholder">
+                        <div id="filePicker" class="webuploader-container"><div class="webuploader-pick">点击选择文件</div><div id="rt_rt_1boblrdcj1akd15391csg13j5te51" style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+                        <p>或将文件拖到这里</p>
+                    </div>
+                    <ul class="filelist"></ul></div>
+                <div class="statusBar" style="display:none;">
+                    <div class="progress" style="display: none;">
+                        <span class="text">0%</span>
+                        <span class="percentage" style="width: 0%;"></span>
+                    </div><div class="info">共0张（0B），已上传0个文件</div>
+                    <div class="btns">
+                        <div id="filePicker2" class="webuploader-container"><div class="webuploader-pick">继续添加</div><div id="rt_rt_1boblrdd6jdr1n1pbsd1eb51vre6" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div><div class="uploadBtn state-pedding upload-project">false</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row cl upload_btn">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+
+</article>
+<!--请在下方写此页面业务相关的脚本-->
+<!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/common/js/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/common/js/common/util.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var id=getUrlParams(window.location.search,"id")
+        if (id!=null){
+            $.ajax({
+                type: 'POST',
+                url: '/project-edit.html',
+                dataType: 'json',
+                data:{
+                    id:id
+                },
+                success: function(data){
+                    console.log(data)
+                    $("#name").val(data.name);
+                    $("#estimated").val(data.estimated);
+                    $("#content").val(data.content);
+                    $("#quality_level").val(data.quality_level);
+                    $("#technical_standard").val(data.technical_standard);
+                    $("#project_duration").val(data.project_duration);
+                    $("#server_duration").val(data.server_duration);
+                    $("#select_num").val(data.select_num);
+                    $("#security_deposit").val(data.security_deposit);
+                    $("#commission").val(data.commission);
+                    $("#enable_time").val(data.enable_time)
+                },
+                error:function(data) {
+                    console.log(data);
+                },
+            });
+        }
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-member-add").validate({
+            rules:{
+                name:{
+                    remote:"/project_validate"
+                },
+                estimated:{
+                    required:true,
+                },
+                content:{
+                    required:true,
+                },
+                quality_level:{
+                    required:true,
+                },
+                technical_standard:{
+                    required:true,
+                },
+                project_duration:{
+                    required:true,
+                },
+                server_duration:{
+                    required:true,
+                },
+                select_num:{
+                    required:true,
+                },
+                security_deposit:{
+                    required:true,
+                },
+                technical_standard:{
+                    required:true,
+                },
+
+            },
+            messages: {
+                name: {
+                    remote: "项目已存在"
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                var name=$("#name").val();
+                var estimated=$("#estimated").val();
+                var content=$("#content").val();
+                var quality_level=$("#quality_level").val();
+                var technical_standard=$("#technical_standard").val();
+                var project_duration=$("#project_duration").val();
+                var server_duration=$("#server_duration").val();
+                var select_num=$("#select_num").val();
+                var security_deposit=$("#security_deposit").val();
+                var commission=$("#commission").val();
+                var enable_time = $("#enable_time").val()
+                var en = enable_time.split("/")
+                if($(".filelist").has("li").length > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/project-add.html",
+                        data: {
+                            name: name,
+                            estimated: estimated,
+                            content: content,
+                            quality_level: quality_level,
+                            technical_standard: technical_standard,
+                            project_duration: project_duration,
+                            server_duration: server_duration,
+                            select_num: select_num,
+                            security_deposit: security_deposit,
+                            commission: commission,
+                            enable_time:new Date(en[0],parseInt(en[1])-1,en[2],en[3],en[4],en[5]),
+                            id: id
+                        },
+                        dataType: 'json',
+                        async: false,
+                        success: function (data) {
+                            $(".uploadBtn").click()
+
+
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('添加失败!', {icon: 1, time: 1000});
+                        }
+                    });
+                }else{
+                    $.ajax({
+                        type: 'POST',
+                        url: "/project-add.html",
+                        data: {
+                            name: name,
+                            estimated: estimated,
+                            content: content,
+                            quality_level: quality_level,
+                            technical_standard: technical_standard,
+                            project_duration: project_duration,
+                            server_duration: server_duration,
+                            select_num: select_num,
+                            security_deposit: security_deposit,
+                            commission: commission,
+                            enable_time:new Date(en[0],parseInt(en[1])-1,en[2],en[3],en[4],en[5]),
+                            id: id
+                        },
+                        dataType: 'json',
+                        async: false,
+                        success: function (data) {
+                            layer.msg('项目发布成功!', {icon: 6,time:1000});
+                            parent.location.replace("/admin/project.html")
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('添加失败!', {icon: 1, time: 1000});
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+</body>

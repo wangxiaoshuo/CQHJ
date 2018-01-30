@@ -1,0 +1,54 @@
+<head>
+    <title>评委列表</title>
+</head>
+<body>
+<article class="page-container">
+    <form class="form form-horizontal" id="judge-upload">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                请选择评委文件：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="file" class="input-text" value="" placeholder="" id="files" name="files">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" onclick="upload()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+    <!--请在下方写此页面业务相关的脚本-->
+    <!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+    <!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+    <!--<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>-->
+    <script type="text/javascript" src="/common/js/common/util.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+
+        })
+
+        function upload() {
+            $("#judge-upload").ajaxSubmit({
+                type: 'post',
+                url: "/judge-upload" ,
+                success: function(data){
+                    layer.msg('添加成功!',{icon:1,time:1000});
+                    parent.location.replace("/admin/judge.html")
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('error!',{icon:1,time:1000});
+                }
+            });
+        }
+
+    </script>
+</body>

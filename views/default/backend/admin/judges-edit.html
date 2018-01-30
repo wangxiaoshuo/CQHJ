@@ -1,0 +1,125 @@
+<head>
+    <title>评委列表</title>
+</head>
+<body>
+<article class="page-container">
+    <div class="form form-horizontal" id="form-judges-edit">
+        <input type="hidden" id="id" name="id" value="0"/>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                姓名：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                证书编号：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                联系电话：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="tel" name="tel">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                关联专业：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="relevance" name="relevance">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>
+                公司部门：
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="department" name="department">
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" onclick="edit()" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!--请在下方写此页面业务相关的脚本-->
+    <!--<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>-->
+    <!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+    <!--<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>-->
+    <script type="text/javascript" src="/common/js/common/util.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var edit_id=getUrlParams(window.location.search,"edit")
+            if (edit_id!=null){
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/judge-edit.html',
+                    dataType: 'json',
+                    data:{
+                        id:edit_id
+                    },
+                    success: function(data){
+                        $("#name").val(data.name);
+                        $("#number").val(data.number);
+                        $("#tel").val(data.tel);
+                        $("#relevance").val(data.relevance);
+                        $("#department").val(data.department);
+                        $("#id").val(data._id);
+                    },
+                    error:function(data) {
+                        console.log(data);
+                    },
+                });
+            }
+        })
+
+        function edit() {
+            var id=$("#id").val();
+            var name=$("#name").val();
+            var number=$("#number").val();
+            var tel=$("#tel").val();
+            var relevance=$("#relevance").val();
+            var department=$("#department").val();
+            $.ajax({
+                type: 'POST',
+                url: '/admin/judge-add.html',
+                dataType: 'json',
+                data:{
+                    id:id,
+                    name:name,
+                    number:number,
+                    tel:tel,
+                    relevance:relevance,
+                    department:department
+                },
+                success: function(data){
+                    layer.msg('操作成功!', {icon: 6,time:1000});
+                    parent.location.replace("/admin/judge.html?current="+sessionStorage.pagecount)
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+
+                },
+                error:function(data) {
+                    layer.msg('操作失败!', {icon: 6,time:1000});
+                }
+            });
+        }
+
+    </script>
+</body>

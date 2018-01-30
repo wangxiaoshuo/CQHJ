@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>评审结果</title>
+
+    <!--=== 系统图标 ICO ===-->
+    <link rel="Shortcut Icon" href="#">
+
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="../css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="../css/fstyle.css">
+
+    <style>
+
+        .ui-badge-audit, .ui-badge-review, .ui-badge-through, .ui-badge-succeed, .ui-badge-fail, .ui-badge-failure {
+            text-align: center;
+            color: #fff;
+            font-size: 11px;
+            height: 22px;
+            line-height: 22px;
+            -webkit-border-radius: 8px;
+            padding: 0 6px;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .review_list_d {
+            padding: 24px 18px;
+            display:none;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid rgb(228, 228, 228);
+        }
+
+
+
+        .ui-badge-audit {
+            background-color: #f7a462!important;
+        }
+        .ui-badge-review {
+            background-color: #ffd94c!important;
+        }
+        .ui-badge-through {
+            background-color: #26c33e!important;
+        }
+        .ui-badge-succeed {
+            background-color: #03a9f4!important;
+        }
+        .ui-badge-fail {
+            background-color: #f55356!important;
+        }
+        .ui-badge-failure {
+            background-color: #ccc9c9!important;
+        }
+
+
+        /*评审结果*/
+        .result-d {
+            padding-right: 25px;
+        }
+
+        .result-l {
+            width: 60px;
+            right: -7px;
+            color: #2eaff5;
+            font-size: 18px;
+        }
+
+
+        /*列表*/
+        .resultsList dl dt {
+            line-height: 50px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            height: 60px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .resultsList dl dt .lines {
+            padding-top: 10px;
+            line-height: 23px;
+            margin: 0px 43px 0px 15px;
+            background-color: transparent!important;
+        }
+
+        .resultsList .keUpDownToggleBtn {
+            background: url(http://www.sobey.com/statics/new/images/m2cs_icon2.png) no-repeat;
+            display: block;
+            height: 21px;
+            width: 21px;
+            position: absolute;
+            top: 20px;
+            right: 17px;
+        }
+
+        .resultsList dl dt.on .keUpDownToggleBtn {
+            background: url(http://www.sobey.com/statics/new/images/m2cs_icon1.png) no-repeat;
+        }
+
+        .resultsList dl dd {
+            color: #666;
+            font-size: 14px !important;
+            line-height: 22px;
+            padding: 20px;
+            display: none;
+            background: #F6F6F6;
+            border-top: 1px solid #DDDDDD;
+        }
+
+        .resultsList dl dd a:hover {
+            text-decoration: none;
+            color: #009edb;
+            outline: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!--=== 导航栏 开始 ===-->
+    <header class="ui-header ui-header-positive ui-border-b">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+        <h1>评审列表</h1><div class="ui-btn-wrap">
+    </div>
+    </header>
+    <!--=== 导航栏 结束 ===-->
+
+    <!--=== loading 开始 ===-->
+    <!--<div class="ui-loading-block show">-->
+        <!--<div class="ui-loading-cnt">-->
+            <!--<i class="ui-loading-bright"></i>-->
+            <!--<p>正在加载中...</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--=== loading 结束 ===-->
+
+    <!--=== 内容详情 开始 ===-->
+    <section>
+        <section id="list">
+            <div class="demo-item">
+                <p class="demo-desc">评审结果</p>
+                <div class="demo-block">
+                    <div class="resultsList">
+                        <dl>
+                            <dt class="">
+                                <div class="lines"><p class="ui-nowrap-multi">成都铁塔2017年三环路扩能提升工程拆迁还建引入服务单位项目</p></div>
+                                <a href="javascript:;" class="keUpDownToggleBtn"></a>
+                            </dt>
+                            <dd style="display: none;">
+                                <ul class="ui-list-text ui-border-tb">
+                                    <li class="">
+                                        <div class="ui-nowrap-flex result-d">
+                                            成都铁塔扩能提升工程拆迁还建有限责任公司
+                                        </div>
+                                        <label class="ui-switch result-l">
+                                            100分
+                                        </label>
+                                    </li>
+                                    <li class="">
+                                        <div class="ui-nowrap-flex result-d">
+                                            成都铁塔扩能提升工程拆迁还建有限责任公司
+                                        </div>
+                                        <label class="ui-switch result-l">
+                                            80分
+                                        </label>
+                                    </li>
+                                    <li class="">
+                                        <div class="ui-nowrap-flex result-d">
+                                            成都铁塔扩能提升工程拆迁还建有限责任公司
+                                        </div>
+                                        <label class="ui-switch result-l">
+                                            70分
+                                        </label>
+                                    </li>
+                                    <li class="">
+                                        <div class="ui-nowrap-flex result-d">
+                                            成都铁塔扩能提升工程拆迁还建有限责任公司
+                                        </div>
+                                        <label class="ui-switch result-l">
+                                            60分
+                                        </label>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!--=== 内容详情 结束 ===-->
+
+    <!--=== JQUERY(第三方) JS ===-->
+    <script src="../js/common/jquery.min.js"></script>
+    <!--=== ZEPTO(第三方) JS ===-->
+    <script src="../js/common/zepto.min.js"></script>
+    <!--=== FROZEN(第三方) JS ===-->
+    <script src="../js/common/frozen.js"></script>
+
+    <script type="text/javascript">
+
+        $(".resultsList dt").click(function(){
+            if($(this).next("dd").css("display")=="none"){
+                $(".resultsList dt").removeClass("on");
+                $(".resultsList dd").slideUp(300);
+                $(this).addClass("on");
+                $(this).next("dd").slideDown(300);
+            }else{
+                $(this).removeClass("on");
+                $(this).next("dd").slideUp(300);
+            }
+        });
+        
+
+
+        $('.ui-searchbar').tap(function(){
+            $('.ui-searchbar-wrap').addClass('focus');
+            $('.ui-searchbar-input input').focus();
+        });
+        $('.ui-searchbar-cancel').tap(function(){
+            $('.ui-searchbar-wrap').removeClass('focus');
+        });
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>上传应答材料</title>
+
+    <!--=== 系统图标 ICO ===-->
+    <link rel="Shortcut Icon" href="#">
+
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="../css/frozen.css">
+    <!--=== WEBUPLPADER(第三方) CSS ===-->
+    <link rel="stylesheet" href="../css/webuploader.css">
+    <!--=== DIYUPIOAD(第三方) CSS ===-->
+    <link rel="stylesheet" href="../css/diyUpload.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="../css/fstyle.css">
+
+    <style>
+        #material {
+            width: 100%;
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        #material .webuploader-pick {
+            width: 100%;
+            background: url(../images/uploadFile.png) center 29px no-repeat;
+            height: 140px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--=== 导航栏 开始 ===-->
+    <header class="ui-header ui-header-positive ui-border-b">
+        <i class="ui-icon-return" onclick="history.back()"></i>
+        <h1>上传应答材料</h1><div class="ui-btn-wrap">
+    </div>
+    </header>
+    <!--=== 导航栏 结束 ===-->
+
+    <!--=== loading 开始 ===-->
+    <!--<div class="ui-loading-block show">-->
+        <!--<div class="ui-loading-cnt">-->
+            <!--<i class="ui-loading-bright"></i>-->
+            <!--<p>正在加载中...</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--=== loading 结束 ===-->
+
+    <!--=== 内容详情 开始 ===-->
+    <section class="ui-container">
+        <div id="material"></div>
+
+    </section>
+    <!--=== 内容详情 结束 ===-->
+
+    <!--=== JQUERY(第三方) JS ===-->
+    <script src="../js/common/jquery.min.js"></script>
+    <!--=== ZEPTO(第三方) JS ===-->
+    <script src="../js/common/zepto.min.js"></script>
+    <!--=== FROZEN(第三方) JS ===-->
+    <script src="../js/common/frozen.js"></script>
+    <!--=== WEBUPLPADER(第三方) JS ===-->
+    <script src="../js/common/webuploader.min.js"></script>
+    <!--=== DIYUPIOAD(第三方) JS ===-->
+    <script src="../js/common/diyUpload.js"></script>
+    <script>
+        $('#material').diyUpload({
+            url:'',
+            success:function( data ) {
+                console.info( data );
+            },
+            error:function( err ) {
+                console.info( err );
+            },
+            buttonText : '选择文件',
+            chunked:true,
+            // 分片大小
+            chunkSize:512 * 1024,
+            //最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
+            fileNumLimit:50,
+            fileSizeLimit:500000 * 1024,
+            fileSingleSizeLimit:50000 * 1024,
+            accept: {}
+        });
+    </script>
+</body>
+</html>

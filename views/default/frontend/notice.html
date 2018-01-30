@@ -1,0 +1,123 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>公告列表</title>
+
+    <!--=== 系统图标 ICO ===-->
+    <link rel="Shortcut Icon" href="#">
+
+    <!--=== 图标(第三方) CSS ===-->
+    <link rel="stylesheet" href="/common/css/frozen.css">
+
+    <!--=== STYLE CSS ===-->
+    <link rel="stylesheet" href="/common/css/fstyle.css">
+</head>
+<body>
+
+<!--=== 搜索框 结束 ===-->
+
+<!--=== loading 开始 ===-->
+<!--<div class="ui-loading-block show">-->
+<!--<div class="ui-loading-cnt">-->
+<!--<i class="ui-loading-bright"></i>-->
+<!--<p>正在加载中...</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--=== loading 结束 ===-->
+
+<!--=== 内容详情 开始 ===-->
+<section>
+    <section id="list">
+        <div class="demo-item projects">
+            <p class="demo-desc">公告列表</p>
+            <div class="demo-block">
+                <ul class="ui-list ui-list-text ui-list-active ui-list-cover ui-border-tb" id="render">
+                    <script type="text/html" id="tpl">
+                        <%for(i=0;i < data.length;i++){%>
+                        <li class="ui-border-t" style="border-top: 1px solid #e0e0e0;">
+                            <div class="ui-list-info">
+                                <div class="title">
+                                    <%=data[i].name%>
+                                </div>
+                                <div class="demo-block">
+                                    <ul class="ui-tiled">
+                                        <li>
+                                            <div class="min-title">所属项目:
+                                                <div style="margin-right: 9px;">
+                                                    <a><%=data[i].project%></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="min-title">附件:
+                                                <%if(data[i].material.length > 0){%>
+                                                <div>
+                                                    <%for(j=0;j < data[i].material.length;j++){%>
+                                                    <a onclick="materialShow('<%=data[i].material[j].name%>','<%=data[i].material[j].url%>')" href="javascript:void(0)" style="display: block;margin-bottom:5px;color: steelblue;text-decoration: underline;"><%=data[i].material[j].name%></a>
+                                                    <%}%>
+                                                </div>
+                                                <%}%>
+                                                <%if(data[i].material.length == 0){%>
+                                                <div>
+                                                    此公告无附件
+                                                </div>
+                                                <%}%>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p style="text-align: right;"><%=data[i].update_time%></p>
+                            </div>
+                        </li>
+                        <%}%>
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </section>
+</section>
+<div class="hidden aa">{{projects}}</div>
+<input type="text" class="select hidden" value="-1">
+<script type="text/javascript" src="/lib/template-native.js"></script>
+<!--=== 内容详情 结束 ===-->
+
+<!--=== JQUERY(第三方) JS ===-->
+<!--<script src="../js/common/jquery.min.js"></script>-->
+<!--=== ZEPTO(第三方) JS ===-->
+<script src="/common/js/zepto.min.js"></script>
+<!--=== FROZEN(第三方) JS ===-->
+<script src="/common/js/frozen.js"></script>
+
+<script type="text/javascript">
+    $('.ui-searchbar').on('tap',function(){
+        $('.ui-searchbar-wrap').addClass('focus');
+        $('.ui-searchbar-input input').focus();
+    });
+    $('.ui-searchbar-cancel').on('tap',function(){
+        $('.ui-searchbar-wrap').removeClass('focus');
+    });
+</script>
+<script>
+    $(function(){
+        var aa = $(".aa").text()
+        var data = JSON.parse(aa)
+        $(".r strong").html(length)
+        $("#render").html(template("tpl",{data:data}))
+
+    })
+
+    //查看材料
+    function materialShow(name,url){
+        var name = name.split('.')
+        var type = name[name.length-1]
+        if(type == 'docx'){
+            var u = encodeURI(url)
+            location.href = "/material.html?url="+u
+        }else if(type == 'pdf'){
+            var u = encodeURI(url)
+            location.href = "/pdf.html?file="+u
+        }
+    }
+</script>
+</body>
